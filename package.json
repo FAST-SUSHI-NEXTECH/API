@@ -1,0 +1,21 @@
+{
+  "name": "api_fast",
+  "version": "1.0.0",
+  "description": "an API for a website, mobile & desktop app",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "(https://github.com/FAST-SUSHI-NEXTECH/API.git)"
+  },
+  "keywords": [
+    "sushi",
+    "app",
+    "store",
+    "restaurants"
+  ],
+  "author": "Talace",
+  "license": "MIT"
+}
