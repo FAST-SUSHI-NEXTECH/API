@@ -1,3 +1,4 @@
 # package
 /node_modules/
+/node_modules/vary
 package-lock.json
