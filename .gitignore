@@ -1,4 +1,4 @@
 # package
 /node_modules/
-/node_modules/vary
+/node_modules/vary/README.md
 package-lock.json
