@@ -3,7 +3,7 @@ const pool = require('../dbConnection');
 const getBaseCustomData = async (req, res) => {
     try {
         const connection = await pool.getConnection();
-        const users = await connection.query('SELECT * FROM sushi');
+        const users = await connection.query('SELECT * FROM base');
         connection.release();
         res.json(users);
     } catch (error) {
