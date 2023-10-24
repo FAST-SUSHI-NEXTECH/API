@@ -3,6 +3,7 @@ const app = express();
 
 const dessertController = require('./src/MenuRequests/dessertController.js');
 const entreeController = require('./src/MenuRequests/entreeController.js');
+const platController = require('./src/MenuRequests/platController.js')
 
 const customController = require('./src/MenuRequests/customController.js');
 
