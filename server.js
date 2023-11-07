@@ -1,6 +1,8 @@
 const express = require('express');
+
 const app = express();
 
+app.use(express.json());
 //get
 const dessertController = require('./src/MenuRequests/dessertController.js');
 const entreeController = require('./src/MenuRequests/entreeController.js');
