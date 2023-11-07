@@ -3,16 +3,16 @@ const pool = require('../dbConnection');
 const postLogin = async (req, res) => {
     try {
         const connection = await pool.getConnection();
-        const query = "SELECT * FROM users WHERE username = ? AND password = ?";
-        const users = await connection.query(query, [req.body.username, req.body.password]);
+        const query = "SELECT * FROM user WHERE identifiant = ? AND mdp = ?";
+        const user = await connection.query(query, [req.body.identifiant, req.body.mdp]);
         connection.release();
 
-        if (users.length === 0) {
+        if (user.length === 0) {
             // No user found with the provided username and password
             res.status(401).json({ message: 'Authentication failed. Invalid username or password.' });
         } else {
             // User found, you can send user data or a success message here
-            res.json(users);
+            res.json(user);
         }
     } catch (error) {
         console.error(error);
