@@ -21,6 +21,8 @@ const { postCreateOrder } = require('./src/OrderRequests/createOrderController.j
 
 // put (update)
 const { putStateOrder } = require('../API/src/OrderRequests/stateOrderController.js');
+const { putIngredient } = require('./src/AdminRequests/putIngredientController.js');
+
 
 //delete
 const { deleteUser } = require('./src/AdminRequests/deleteUserController.js');
@@ -47,10 +49,11 @@ app.post('/order/create', postCreateOrder)
 
 // put (UPDATE)
 app.put('/order/state/update', putStateOrder)
+app.put('/custom/ingredient/update', putIngredient)
 
 //delete
 app.delete('/user/delete', deleteUser)
-app.delete('/custom/base/ingredient/delete', deleteIngredient)
+app.delete('/custom/ingredient/delete', deleteIngredient)
 
 app.listen(API_PORT, () => {
     console.log('Server listening on port:', API_PORT);
