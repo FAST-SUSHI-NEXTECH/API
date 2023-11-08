@@ -21,7 +21,8 @@ const { postCreateOrder } = require('./src/OrderRequests/createOrderController.j
 const { putStateOrder } = require('../API/src/OrderRequests/stateOrderController.js');
 
 //delete
-const { deleteUser } = require('./src/UserRequests/deleteController.js');
+const { deleteUser } = require('./src/AdminRequests/deleteUserController.js');
+const { deleteIngredient } = require('./src/AdminRequests/deleteIngredientController.js');
 
 const API_PORT = 3000;
 
@@ -36,15 +37,16 @@ app.get('/custom/ingredient', customController.getIngredientCustomData);
 app.get('/order', getOrder)
 
 // post
-app.post('/create/user', postCreateUser)
+app.post('/user/create', postCreateUser)
 app.post('/login', loginController.postLogin)
-app.post('/create/order', postCreateOrder)
+app.post('/order/create', postCreateOrder)
 
 // put (UPDATE)
 app.put('/order/state/update', putStateOrder)
 
 //delete
-app.delete('/delete/user', deleteUser)
+app.delete('/user/delete', deleteUser)
+app.delete('/custom/base/ingredient/delete', deleteIngredient)
 
 app.listen(API_PORT, () => {
     console.log('Server listening on port:', API_PORT);
