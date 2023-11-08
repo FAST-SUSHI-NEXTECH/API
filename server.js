@@ -18,7 +18,7 @@ const { postCreateUser } = require('./src/UserRequests/createUserController.js')
 const { postCreateOrder } = require('./src/OrderRequests/createOrderController.js');
 
 // put (update)
-const { putStateOrder2 } = require('../API/src/OrderRequests/stateOrderController.js');
+const { putStateOrder } = require('../API/src/OrderRequests/stateOrderController.js');
 
 //delete
 const { deleteUser } = require('./src/UserRequests/deleteController.js');
@@ -41,7 +41,7 @@ app.post('/login', loginController.postLogin)
 app.post('/create/order', postCreateOrder)
 
 // put (UPDATE)
-app.put('/order/state/update/2', putStateOrder2)
+app.put('/order/state/update', putStateOrder)
 
 //delete
 app.delete('/delete/user', deleteUser)
