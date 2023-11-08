@@ -10,6 +10,8 @@ const platController = require('./src/MenuRequests/platController.js')
 
 const customController = require('./src/MenuRequests/customController.js');
 
+const { getOrder } = require('./src/OrderRequests/orderController.js');
+
 //post
 const loginController = require('./src/UserRequests/loginController.js');
 const { postCreateUser } = require('./src/UserRequests/createUserController.js');
@@ -27,6 +29,8 @@ app.get('/plat', platController.getPlatData);
 
 app.get('/custom/base', customController.getBaseCustomData);
 app.get('/custom/ingredient', customController.getIngredientCustomData);
+
+app.get('/order', getOrder)
 
 // post
 app.post('/create/user', postCreateUser)
