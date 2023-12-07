@@ -42,7 +42,7 @@ const API_PORT = 3000;
 // get
 app.get('/dessert', dessertController.getDessertData);
 app.get('/appetizer', appetizerController.getAppetizerData);
-app.get('/plat', platController.getPlatData);
+app.get('/plate', platController.getPlatData);
 
 app.get('/custom/base', customController.getBaseCustomData);
 app.get('/custom/ingredient', customController.getIngredientCustomData);
