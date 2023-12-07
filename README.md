@@ -1,8 +1,8 @@
 # API - API for the FAST SUSHI !
 
 ### Info 🍥
-main = server.js 
-/src/ = all requests
+- main = server.js 
+- /src/ = all requests
 
 ## If you want to build it locally 🏚️
 #### 1. First git clone
@@ -11,7 +11,13 @@ git clone  https://github.com/FAST-SUSHI-NEXTECH/API.git
 ```
 #### 2. Config db.connection to your db
 ```
-
+const pool = mariadb.createPool({
+    host: 'your_ip',
+    port: db_port,
+    user: 'user_db_name',
+    password: 'your_password',
+    database: 'db_name',
+});
 ```   
 #### 3. install node modules
 ```
