@@ -3,7 +3,7 @@ const pool = require('../dbConnection');
 const deleteIngredient = async (req, res) => {
     try {
         const connection = await pool.getConnection();
-        const query = "DELETE FROM ingredient WHERE id_ingredient = ?";
+        const query = "DELETE FROM product WHERE type_product='ingredient' AND id_product= ?";
         const result = await connection.query(query, [req.body.ingredient]);
 
         connection.release();
