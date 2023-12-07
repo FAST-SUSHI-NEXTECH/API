@@ -1,5 +1,50 @@
 const pool = require('../dbConnection');
 
+/**
+ * @swagger
+ * tags:
+ *   - name: Order
+ *     description: Request for orders (create, state, etc..)
+ */
+
+/**
+ * @swagger
+ * /order/create:
+ *   post:
+ *     summary: Create a new order
+ *     description: Creates a new order for a client
+ *     tags:
+ *       - Order
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               id_client:
+ *                 type: integer
+ *                 description: The ID of the client placing the order
+ *             required:
+ *               - id_client
+ *     responses:
+ *       201:
+ *         description: Order created successfully
+ *         content:
+ *           application/json:
+ *             example: { message: 'Order created successfully.' }
+ *       400:
+ *         description: Failed to create order
+ *         content:
+ *           application/json:
+ *             example: { message: 'Failed to create order.' }
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             example: { message: 'Internal server error.' }
+ */
+
 const postCreateOrder = async (req, res) => {
     try {
         const connection = await pool.getConnection();
