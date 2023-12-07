@@ -3,11 +3,11 @@ const pool = require('../dbConnection');
 const putIngredient = async (req, res) => {
     try {
         const connection = await pool.getConnection();
-        const { id_ingredient, name_ingredient, description, prix, quantité } = req.body;
+        const { product_name, description, price, quantity, id_product } = req.body;
 
         // Use a parameterized query to prevent SQL injection
-        const query = "UPDATE ingredient SET name_ingredient = ?, description = ?, prix = ?, quantité = ? WHERE id_ingredient = ?";
-        const command = await connection.execute(query, [name_ingredient, description, prix, quantité, id_ingredient]);
+        const query = "UPDATE product SET product_name = ?, description = ?, price = ?, quantity = ? WHERE id_product = ? AND id_product BETWEEN 101 AND 199";
+        const command = await connection.execute(query, [product_name, description, price, quantity, id_product]);
 
         connection.release();
 
