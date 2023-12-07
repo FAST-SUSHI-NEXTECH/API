@@ -3,7 +3,7 @@ const pool = require('../dbConnection');
 const getOrder = async (req, res) => {
     try {
         const connection = await pool.getConnection();
-        const users = await connection.query('SELECT * FROM commande');
+        const users = await connection.query('SELECT * FROM customer_order');
         connection.release();
         res.json(users);
     } catch (error) {
