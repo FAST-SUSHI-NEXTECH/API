@@ -1,5 +1,21 @@
 const pool = require('../dbConnection'); 
 
+/**
+ * @swagger
+ * /plate:
+ *   get:
+ *     summary: Get plate data
+ *     description: Returns base data
+ *     tags:
+ *       - Product
+ *     responses:
+ *       200:
+ *         description: Successful response
+ *         content:
+ *           application/json:
+ *             example: { dessert: 'Chocolate Cake', price: 10.99 }
+ */
+
 const getPlatData = async (req, res) => {
     try {
         const connection = await pool.getConnection();
