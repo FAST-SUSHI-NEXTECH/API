@@ -5,9 +5,10 @@ const postCreateOrder = async (req, res) => {
         const connection = await pool.getConnection();
         const { id_client } = req.body;
 
-        const query = `INSERT INTO commande (id_command, id_client, etat_command, timestamp) VALUES (DEFAULT, ${id_client}, 1, DEFAULT)`;
+        // we only insert these values, the value id_order is auto-increment, id_picker will be set when a picker will take the order and update the state
+        const query = `INSERT INTO customer_order (id_client, order_state, date) VALUES (?, 1, NOW())`;
 
-        const result = await connection.query(query);
+        const result = await connection.query(query, [id_client]);
         connection.release();
 
         if (result.affectedRows > 0) {
