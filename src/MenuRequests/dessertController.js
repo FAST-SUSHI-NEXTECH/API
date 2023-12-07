@@ -3,7 +3,7 @@ const pool = require('../dbConnection');
 const getDessertData = async (req, res) => {
     try {
         const connection = await pool.getConnection();
-        const users = await connection.query('SELECT * FROM dessert');
+        const users = await connection.query('SELECT * FROM product WHERE type_product="dessert"');
         connection.release();
         res.json(users);
     } catch (error) {
