@@ -34,3 +34,5 @@ docker build -t api_fast_image:1.0 .
 ```
 docker run -p 3000:3000 -d --name api_container api_fast_image:1.0
 ```
+
+Author : **StopThatTalace**
