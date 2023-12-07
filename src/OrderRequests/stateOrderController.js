@@ -5,8 +5,8 @@ const putStateOrder = async (req, res) => {
         const connection = await pool.getConnection();
         const { etat_command, id_command } = req.body;
 
-        // Use a parameterized query to prevent SQL injection
-        const query = "UPDATE commande SET etat_command = ? WHERE id_command = ?";
+        // Will be set in the app, so can be state 2 or 3
+        const query = "UPDATE customer_order SET order_state = ? WHERE id_order = ?";
         const command = await connection.execute(query, [etat_command, id_command]);
 
         connection.release();
