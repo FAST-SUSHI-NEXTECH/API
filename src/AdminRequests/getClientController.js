@@ -1,5 +1,32 @@
 const pool = require('../dbConnection'); 
 
+/**
+ * @swagger
+ * /user/client:
+ *   get:
+ *     summary: Get all clients
+ *     description: Returns a list of all clients with permission level 1
+ *     tags:
+ *       - Admin
+ *     responses:
+ *       200:
+ *         description: Successful response
+ *         content:
+ *           application/json:
+ *             example: 
+ *               - id: 1
+ *                 username: 'john_doe'
+ *                 permission: 1
+ *               - id: 2
+ *                 username: 'jane_doe'
+ *                 permission: 1
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             example: { message: 'Internal server error.' }
+ */
+
 const getClient = async (req, res) => {
     try {
         const connection = await pool.getConnection();
