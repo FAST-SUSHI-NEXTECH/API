@@ -3,8 +3,8 @@ const pool = require('../dbConnection');
 const deleteUser = async (req, res) => {
     try {
         const connection = await pool.getConnection();
-        const query = "DELETE FROM user WHERE identifiant = ?";
-        const result = await connection.query(query, [req.body.identifiant]);
+        const query = "DELETE FROM user WHERE username = ?";
+        const result = await connection.query(query, [req.body.username]);
 
         connection.release();
 
