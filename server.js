@@ -7,7 +7,7 @@ app.use(cors());
 app.use(express.json());
 //get
 const dessertController = require('./src/MenuRequests/dessertController.js');
-const appetizerController = require('./src/MenuRequests/entreeController.js');
+const appetizerController = require('./src/MenuRequests/appetizerController.js');
 const platController = require('./src/MenuRequests/platController.js')
 
 const customController = require('./src/MenuRequests/customController.js');
