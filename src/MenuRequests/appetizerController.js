@@ -1,9 +1,9 @@
 const pool = require('../dbConnection'); 
 
-const getEntreeData = async (req, res) => {
+const getAppetizerData = async (req, res) => {
     try {
         const connection = await pool.getConnection();
-        const users = await connection.query('SELECT * FROM entree');
+        const users = await connection.query('SELECT * FROM product WHERE type_product="appetizer"');
         connection.release();
         res.json(users);
     } catch (error) {
@@ -12,4 +12,4 @@ const getEntreeData = async (req, res) => {
     }
 };
 
-module.exports = { getEntreeData };
+module.exports = { getAppetizerData };

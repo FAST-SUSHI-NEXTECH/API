@@ -7,7 +7,7 @@ app.use(cors());
 app.use(express.json());
 //get
 const dessertController = require('./src/MenuRequests/dessertController.js');
-const entreeController = require('./src/MenuRequests/entreeController.js');
+const appetizerController = require('./src/MenuRequests/entreeController.js');
 const platController = require('./src/MenuRequests/platController.js')
 
 const customController = require('./src/MenuRequests/customController.js');
@@ -34,7 +34,7 @@ const API_PORT = 3000;
 
 // get
 app.get('/dessert', dessertController.getDessertData);
-app.get('/entree', entreeController.getEntreeData);
+app.get('/appetizer', appetizerController.getAppetizerData);
 app.get('/plat', platController.getPlatData);
 
 app.get('/custom/base', customController.getBaseCustomData);
