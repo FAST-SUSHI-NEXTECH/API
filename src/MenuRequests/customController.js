@@ -2,7 +2,7 @@ const pool = require('../dbConnection');
 
 /**
  * @swagger
- * /base:
+ * /custom/base:
  *   get:
  *     summary: Get base data
  *     description: Returns base data
@@ -14,7 +14,7 @@ const pool = require('../dbConnection');
  *         content:
  *           application/json:
  *             example: { Base: 'Saumon', price: 4.10 }
- * /ingredient:
+ * /custom/ingredient:
  *   get:
  *     summary: Get ingredient data
  *     description: Returns ingredient data
