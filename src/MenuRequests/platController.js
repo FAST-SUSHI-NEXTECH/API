@@ -5,7 +5,7 @@ const pool = require('../dbConnection');
  * /plate:
  *   get:
  *     summary: Get plate data
- *     description: Returns base data
+ *     description: Returns plate data
  *     tags:
  *       - Product
  *     responses:
@@ -13,7 +13,7 @@ const pool = require('../dbConnection');
  *         description: Successful response
  *         content:
  *           application/json:
- *             example: { dessert: 'Chocolate Cake', price: 10.99 }
+ *             example: { Plate: 'Poké poulet', price: 10.00 }
  */
 
 const getPlatData = async (req, res) => {

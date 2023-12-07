@@ -13,7 +13,7 @@ const pool = require('../dbConnection');
  *         description: Successful response
  *         content:
  *           application/json:
- *             example: { dessert: 'Chocolate Cake', price: 10.99 }
+ *             example: { Base: 'Saumon', price: 4.10 }
  * /ingredient:
  *   get:
  *     summary: Get ingredient data
@@ -25,7 +25,7 @@ const pool = require('../dbConnection');
  *         description: Successful response
  *         content:
  *           application/json:
- *             example: { ingredient: 'Cheese', price: 2.99 }
+ *             example: { ingredient: 'Cheese', price: 1.59 }
  */
 
 const getBaseCustomData = async (req, res) => {

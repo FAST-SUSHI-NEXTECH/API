@@ -12,7 +12,7 @@ const pool = require('../dbConnection');
  * /appetizer:
  *   get:
  *     summary: Get base data
- *     description: Returns base data
+ *     description: Returns appetizer data
  *     tags:
  *       - Product
  *     responses:
@@ -20,7 +20,7 @@ const pool = require('../dbConnection');
  *         description: Successful response
  *         content:
  *           application/json:
- *             example: { dessert: 'Chocolate Cake', price: 10.99 }
+ *             example: { appetizer: 'Salade', price: 2.99 }
  */
 
 
