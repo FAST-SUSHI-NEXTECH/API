@@ -10,7 +10,7 @@ app.use(cors());
 app.use(express.json());
 
 // Documentation
-app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use('/home', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 //get
 const dessertController = require('./src/MenuRequests/dessertController.js');
