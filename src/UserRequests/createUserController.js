@@ -1,5 +1,64 @@
 const pool = require('../dbConnection');
 
+/**
+ * @swagger
+ * tags:
+ *   - name: User
+ *     description: API operations related to users
+ */
+
+/**
+ * @swagger
+ * /user/create:
+ *   post:
+ *     summary: Create a new user
+ *     description: Creates a new user with the provided information
+ *     tags:
+ *       - User
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               last_name:
+ *                 type: string
+ *               first_name:
+ *                 type: string
+ *               username:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               tel:
+ *                 type: string
+ *             required:
+ *               - last_name
+ *               - first_name
+ *               - username
+ *               - password
+ *               - email
+ *               - tel
+ *     responses:
+ *       201:
+ *         description: User created successfully
+ *         content:
+ *           application/json:
+ *             example: { message: 'User inserted successfully.' }
+ *       400:
+ *         description: Failed to create user, all fields are required
+ *         content:
+ *           application/json:
+ *             example: { message: 'All fields are required.' }
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             example: { message: 'Internal server error.' }
+ */
+
 const postCreateUser = async (req, res) => {
     try {
         const connection = await pool.getConnection();
