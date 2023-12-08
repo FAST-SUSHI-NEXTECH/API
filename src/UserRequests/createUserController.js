@@ -57,8 +57,8 @@
  *             example: { message: 'Internal server error.' }
  */
 
-const bcrypt = require('bcrypt');
 const pool = require('../dbConnection');
+const bcrypt = require('bcrypt');
 
 const saltRounds = 10;
 
