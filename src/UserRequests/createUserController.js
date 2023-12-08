@@ -86,7 +86,7 @@ const postCreateUser = async (req, res) => {
         const placeholders = fieldNames.map(() => '?').join(', ');
 
         // Include 'password' and 'perm' fields explicitly in the query
-        const query = `INSERT INTO user (${fieldNames.join(', ')}, password, perm) VALUES (${placeholders}, ?, 1)`;
+        const query = `INSERT INTO user (${fieldNames.join(', ')}, password, permission) VALUES (${placeholders}, ?, 1)`;
         const values = fieldNames.map(fieldName => req.body[fieldName]).concat(hashedPassword);
 
         const result = await connection.query(query, values);
