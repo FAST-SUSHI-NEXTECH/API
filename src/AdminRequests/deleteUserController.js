@@ -8,6 +8,8 @@ const pool = require('../dbConnection');
  *     description: Deletes a user based on the provided username
  *     tags:
  *       - Admin
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:

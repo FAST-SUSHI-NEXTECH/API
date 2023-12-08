@@ -8,6 +8,8 @@ const pool = require('../dbConnection');
  *     description: Returns a list of all clients with permission level 1
  *     tags:
  *       - Admin
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: Successful response

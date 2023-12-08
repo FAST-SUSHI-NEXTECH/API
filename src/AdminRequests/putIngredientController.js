@@ -8,6 +8,8 @@ const pool = require('../dbConnection');
  *     description: Updates an ingredient based on the provided information
  *     tags:
  *       - Admin
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:

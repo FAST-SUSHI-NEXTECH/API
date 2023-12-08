@@ -2,19 +2,14 @@ const pool = require('../dbConnection');
 
 /**
  * @swagger
- * tags:
- *   - name: Admin
- *     description: API operations related to administrative tasks
- */
-
-/**
- * @swagger
  * /custom/ingredient/delete:
  *   delete:
  *     summary: Delete an ingredient
  *     description: Deletes an ingredient based on the provided ID
  *     tags:
  *       - Admin
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
