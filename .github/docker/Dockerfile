@@ -1,16 +1,20 @@
 # Utilisez une image de base Node.js
-FROM node:14
+FROM node:18
 
 # Créez et définissez le répertoire de travail dans le conteneur
 WORKDIR /API
 
 # Clone the Git repository (replace <repository-url> with your actual repository URL)
-RUN git clone --branch v2.1 --single-branch https://github.com/FAST-SUSHI-NEXTECH/API.git .
+RUN git clone --branch v2.4 --single-branch https://github.com/FAST-SUSHI-NEXTECH/API.git .
 
 # Delete the /src/dbConnection.js file
 RUN rm -f src/dbConnection.js
 
-# Copy the local dbConnection.js file to the same location
+# Delete the /src/dbConnection.js file
+RUN rm -f src/config.js
+
+# Copy the local config.js & dbConnection.js file to the same location
+COPY config.js src/config.js
 COPY dbConnection.js src/dbConnection.js
 
 # Installez les dépendances du projet
