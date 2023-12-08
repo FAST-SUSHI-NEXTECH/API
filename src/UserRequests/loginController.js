@@ -1,5 +1,3 @@
-const pool = require('../dbConnection'); 
-
 /**
  * @swagger
  * /login:
@@ -39,12 +37,17 @@ const pool = require('../dbConnection');
  *           application/json:
  *             example: { message: 'Internal server error.' }
  */
+const pool = require('../dbConnection'); 
+const bcrypt = require('bcrypt');
+
+const saltRounds = 10;
 
 const postLogin = async (req, res) => {
     try {
         const connection = await pool.getConnection();
         const query = "SELECT * FROM user WHERE username = ? AND password = ?";
-        const user = await connection.query(query, [req.body.username, req.body.password]);
+        const hashedPassword = await bcrypt.hash(password, saltRounds);
+        const user = await connection.query(query, [req.body.username]).concat(hashedPassword);
         connection.release();
 
         if (user.length === 0) {
