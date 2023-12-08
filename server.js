@@ -3,6 +3,7 @@ const cors = require('cors');
 
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpec = require('./src/HomePage/swaggerConfig.js');
+const { verifyToken } = require('./src/jwtChecker.js');
 
 const app = express();
 
@@ -38,6 +39,9 @@ const { deleteUser } = require('./src/AdminRequests/deleteUserController.js');
 const { deleteIngredient } = require('./src/AdminRequests/deleteIngredientController.js');
 
 const API_PORT = 3000;
+
+// Apply the JWT middleware to routes that require authentication
+app.use(['/user/delete', '/custom/ingredient/delete', '/user/client', '/custom/ingredient/update'], verifyToken);
 
 // get
 app.get('/dessert', dessertController.getDessertData);
