@@ -5,7 +5,7 @@ const options = {
         openapi: '3.0.0',
         info: {
             title: 'Fast Sushi API 🍥',
-            version: '0.3',
+            version: 'v0.3',
             description: 'API documentation for a Japanese restaurant based in France 🐯',
         },
     },
