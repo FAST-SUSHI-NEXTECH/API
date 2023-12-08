@@ -1,5 +1,3 @@
-const pool = require('../dbConnection');
-
 /**
  * @swagger
  * tags:
@@ -59,6 +57,11 @@ const pool = require('../dbConnection');
  *             example: { message: 'Internal server error.' }
  */
 
+const bcrypt = require('bcrypt');
+const pool = require('../dbConnection');
+
+const saltRounds = 10;
+
 const postCreateUser = async (req, res) => {
     try {
         const connection = await pool.getConnection();
@@ -75,12 +78,16 @@ const postCreateUser = async (req, res) => {
             res.status(400).json({ message: 'All fields are required.' });
             return;
         }
-        
-        const fieldNames = Object.keys(req.body);
 
+        // Hash the password before storing it in the database
+        const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+        const fieldNames = Object.keys(req.body);
         const placeholders = fieldNames.map(() => '?').join(', ');
-        const query = `INSERT INTO user (${fieldNames.join(', ')}, perm) VALUES (${placeholders}, 1)`;
-        const values = fieldNames.map(fieldName => req.body[fieldName]);
+
+        // Include 'password' and 'perm' fields explicitly in the query
+        const query = `INSERT INTO user (${fieldNames.join(', ')}, password, perm) VALUES (${placeholders}, ?, 1)`;
+        const values = fieldNames.map(fieldName => req.body[fieldName]).concat(hashedPassword);
 
         const result = await connection.query(query, values);
         connection.release();
@@ -97,3 +104,4 @@ const postCreateUser = async (req, res) => {
 };
 
 module.exports = { postCreateUser };
+
