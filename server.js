@@ -28,6 +28,8 @@ const { getClient } = require('./src/AdminRequests/getClientController.js');
 const loginController = require('./src/UserRequests/loginController.js');
 const { postCreateUser } = require('./src/UserRequests/createUserController.js');
 const { postCreateOrder } = require('./src/OrderRequests/createOrderController.js');
+const { generateTokenRequest } = require('./src/AdminRequests/token.js');
+
 
 // put (update)
 const { putStateOrder } = require('../API/src/OrderRequests/stateOrderController.js');
@@ -59,6 +61,7 @@ app.get('/user/client', getClient)
 app.post('/user/create', postCreateUser)
 app.post('/login', loginController.postLogin)
 app.post('/order/create', postCreateOrder)
+app.post('/token', generateTokenRequest);
 
 // put (UPDATE)
 app.put('/order/state/update', putStateOrder)
