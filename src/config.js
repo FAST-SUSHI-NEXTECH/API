@@ -1,1 +1,5 @@
-module.exports = { secretKey: 'your_api_key'};
+module.exports = { 
+    secretKey: 'your',
+    secretUsername: 'secret',
+    secretRole: 'key'
+};
