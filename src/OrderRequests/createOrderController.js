@@ -57,9 +57,9 @@ const postCreateOrder = async (req, res) => {
         connection.release();
 
         if (result.affectedRows > 0) {
-            res.status(201).json({ message: 'User inserted successfully.' });
+            res.status(201).json({ message: 'Order inserted successfully.' });
         } else {
-            res.status(400).json({ message: 'Failed to insert user.' });
+            res.status(400).json({ message: 'Failed to insert Order.' });
         }
     } catch (error) {
         console.error(error);
