@@ -15,13 +15,24 @@ const pool = require('../dbConnection');
  *         description: Successful response
  *         content:
  *           application/json:
- *             example: 
+ *             example:  
  *               - id: 1
+ *                 last_name: 'Doe'
+ *                 first_name: 'John'
  *                 username: 'john_doe'
+ *                 password: 'password'
+ *                 email: 'john@example.com'
+ *                 tel: '123-456-7890'
  *                 permission: 1
  *               - id: 2
- *                 username: 'jane_doe'
+ *                 last_name: 'Doer'
+ *                 first_name: 'Jane'
+ *                 username: 'john_doe'
+ *                 password: 'password'
+ *                 email: 'john@example2.com'
+ *                 tel: '123-456-7890'
  *                 permission: 1
+
  *       500:
  *         description: Internal server error
  *         content:
