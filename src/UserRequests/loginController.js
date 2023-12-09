@@ -37,24 +37,37 @@
  *           application/json:
  *             example: { message: 'Internal server error.' }
  */
-const pool = require('../dbConnection'); 
+const pool = require('../dbConnection');
 const bcrypt = require('bcrypt');
-
-const saltRounds = 10;
 
 const postLogin = async (req, res) => {
     try {
         const connection = await pool.getConnection();
-        const query = "SELECT * FROM user WHERE username = ? AND password = ?";
-        const hashedPassword = await bcrypt.hash(password, saltRounds);
-        const user = await connection.query(query, [req.body.username]).concat(hashedPassword);
-        connection.release();
+        const { username, password } = req.body;
 
-        if (user.length === 0) {
+        // Query the database to retrieve the hashed password for the given username
+        const query = "SELECT * FROM user WHERE username = ?";
+        const result = await connection.query(query, [username]);
+
+        if (result.length === 0) {
+            // User not found
             res.status(401).json({ message: 'Authentication failed. Invalid username or password.' });
         } else {
-            res.json(user);
+            const storedHashedPassword = result[0].password;
+
+            // Compare the user-provided password with the stored hashed password
+            const passwordMatch = await bcrypt.compare(password, storedHashedPassword);
+
+            if (passwordMatch) {
+                // Passwords match, authentication successful
+                res.json(result);
+            } else {
+                // Passwords do not match
+                res.status(401).json({ message: 'Authentication failed. Invalid username or password.' });
+            }
         }
+
+        connection.release();
     } catch (error) {
         console.error(error);
         res.sendStatus(500);
