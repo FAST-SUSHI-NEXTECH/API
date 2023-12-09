@@ -50,7 +50,7 @@ const deleteUser = async (req, res) => {
 
         if (result.affectedRows === 0) {
             // No user found with the provided username
-            res.status(401).json({ message: 'Authentication failed. User not found.' });
+            res.status(401).json({ message: 'User not found.' });
         } else {
             // User deleted successfully
             res.json({ message: 'User deleted successfully.' });
