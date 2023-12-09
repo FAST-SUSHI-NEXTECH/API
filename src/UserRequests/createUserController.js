@@ -74,6 +74,8 @@ const postCreateUser = async (req, res) => {
             tel
         } = req.body;
 
+        
+
         if (!last_name || !first_name || !username || !password || !email || !tel) {
             res.status(400).json({ message: 'All fields are required.' });
             return;
@@ -87,9 +89,8 @@ const postCreateUser = async (req, res) => {
 
         // Include 'password' and 'perm' fields explicitly in the query
         const query = `INSERT INTO user (${fieldNames.join(', ')}, permission) VALUES (${placeholders}, 1)`;
-        const values = fieldNames.map(fieldName => req.body[fieldName]).concat(hashedPassword);
 
-        const result = await connection.query(query, values);
+        const result = await connection.query(query, [last_name, first_name, username, hashedPassword, email, tel]);
         connection.release();
 
         if (result.affectedRows > 0) {
