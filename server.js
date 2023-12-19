@@ -26,6 +26,7 @@ const platController = require('./src/MenuRequests/platController.js')
 const customController = require('./src/MenuRequests/customController.js');
 
 const { getOrder } = require('./src/OrderRequests/orderController.js');
+const { postOrderById } = require('./src/OrderRequests/getOrderByIdController.js');
 const { getClient } = require('./src/AdminRequests/getClientController.js');
 const { getPickerById } = require('./src/UserRequests/getPickerById.js');
 const { getAllProduct } = require('./src/MenuRequests/getAllProductsController.js');
@@ -73,6 +74,7 @@ app.post('/login', loginController.postLogin)
 app.post('/order/create', postCreateOrder)
 app.post('/order/details', postOrderDetails)
 app.post('/token', generateTokenRequest);
+app.post('/order/id', postOrderById)
 
 // put (UPDATE)
 app.put('/order/state/update', putStateOrder)
