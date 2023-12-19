@@ -27,6 +27,8 @@ const customController = require('./src/MenuRequests/customController.js');
 
 const { getOrder } = require('./src/OrderRequests/orderController.js');
 const { getClient } = require('./src/AdminRequests/getClientController.js');
+const { getPickerById } = require('./src/UserRequests/getPickerById.js');
+const { getAllProduct } = require('./src/MenuRequests/getAllProductsController.js');
 
 
 //post
@@ -45,7 +47,6 @@ const { putIngredient } = require('./src/AdminRequests/putIngredientController.j
 //delete
 const { deleteUser } = require('./src/AdminRequests/deleteUserController.js');
 const { deleteIngredient } = require('./src/AdminRequests/deleteIngredientController.js');
-const { getPickerById } = require('./src/UserRequests/getPickerById.js');
 
 const API_PORT = 3000;
 
@@ -56,6 +57,7 @@ app.use(['/user/delete', '/custom/ingredient/delete', '/user/client', '/custom/i
 app.get('/dessert', dessertController.getDessertData);
 app.get('/appetizer', appetizerController.getAppetizerData);
 app.get('/plate', platController.getPlatData);
+app.get('/product', getAllProduct)
 
 app.get('/custom/base', customController.getBaseCustomData);
 app.get('/custom/ingredient', customController.getIngredientCustomData);
