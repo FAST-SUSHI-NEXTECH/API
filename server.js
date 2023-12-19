@@ -45,6 +45,7 @@ const { putIngredient } = require('./src/AdminRequests/putIngredientController.j
 //delete
 const { deleteUser } = require('./src/AdminRequests/deleteUserController.js');
 const { deleteIngredient } = require('./src/AdminRequests/deleteIngredientController.js');
+const { getPickerById } = require('./src/UserRequests/getPickerById.js');
 
 const API_PORT = 3000;
 
@@ -61,6 +62,7 @@ app.get('/custom/ingredient', customController.getIngredientCustomData);
 
 app.get('/order', getOrder)
 app.get('/user/client', getClient)
+app.get('/user/picker/id', getPickerById)
 
 
 // post
