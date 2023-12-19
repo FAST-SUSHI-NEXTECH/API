@@ -1,3 +1,6 @@
+const pool = require('../dbConnection'); 
+
+
 /**
  * @swagger
  * /order/details:
@@ -35,3 +38,23 @@
  *           application/json:
  *             example: { message: 'Internal server error.' }
  */
+
+
+const postOrderDetails= async (req, res) => {
+    try {
+        const connection = await pool.getConnection();
+
+        const { id_order } = req.body
+
+        const query = 'SELECT * FROM order_content WHERE id_order = ?';
+
+        const result = await connection.query(query, [id_order]);
+        connection.release();
+        res.json(result);
+    } catch (error) {
+        console.error(error);
+        res.sendStatus(500);
+    }
+};
+
+module.exports = { postOrderDetails };
