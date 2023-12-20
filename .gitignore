@@ -1,3 +1,5 @@
 # package
 /node_modules/
 /node_modules/vary/README.md
+/src/config.js
+/src/dbConnection.js
