@@ -37,7 +37,9 @@ const { postOrderDetails } = require('./src/OrderRequests/orderDetailsController
 const loginController = require('./src/UserRequests/loginController.js');
 const { postCreateUser } = require('./src/UserRequests/createUserController.js');
 const { postCreateOrder } = require('./src/OrderRequests/createOrderController.js');
-const { generateTokenRequest } = require('./src/AdminRequests/token.js');
+const { generateTokenRequest } = require('./src/AdminRequests/token.js'); 
+const { postClientById } = require('./src/AdminRequests/getClientByIdController.js');
+
 
 
 // put (update)
@@ -75,6 +77,7 @@ app.post('/order/create', postCreateOrder)
 app.post('/order/details', postOrderDetails)
 app.post('/token', generateTokenRequest);
 app.post('/order/id', postOrderById)
+app.post('/user/id', postClientById)
 
 // put (UPDATE)
 app.put('/order/state/update', putStateOrder)
