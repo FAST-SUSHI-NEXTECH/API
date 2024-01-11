@@ -60,7 +60,7 @@ const postLogin = async (req, res) => {
             const passwordMatch = await bcrypt.compare(password, storedHashedPassword);
 
             if (passwordMatch) {
-                res.json(generateToken(result[0].id_user, result[0].username, result[0].permission));
+                res.json({ token: generateToken(result[0].id_user, result[0].username, result[0].permission)});
             } else {
                 // Passwords do not match
                 res.status(401).json({ message: 'Authentication failed. Invalid username or password.' });
