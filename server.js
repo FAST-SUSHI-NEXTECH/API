@@ -5,6 +5,7 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerSpec = require('./src/HomePage/swaggerConfig.js');
 const { verifyToken } = require('./src/jwtChecker.js');
 
+
 const app = express();
 
 const corsOptions = {
@@ -30,6 +31,8 @@ const { postOrderById } = require('./src/OrderRequests/getOrderByIdController.js
 const { getClient } = require('./src/AdminRequests/getClientController.js');
 const { postPickerById } = require('./src/UserRequests/getPickerById.js');
 const { getAllProduct } = require('./src/MenuRequests/getAllProductsController.js');
+const { getInfoUser } = require('./src/UserRequests/getInfoUserController.js');
+
 
 
 //post
@@ -53,7 +56,7 @@ const { deleteIngredient } = require('./src/AdminRequests/deleteIngredientContro
 const API_PORT = 3000;
 
 // Apply the JWT middleware to routes that require authentication
-app.use(['/user/delete', '/custom/ingredient/delete', '/user/client', '/custom/ingredient/update'], verifyToken);
+app.use(['/user/delete', '/custom/ingredient/delete', '/user/client', '/custom/ingredient/update'], verifyToken('admin'));
 
 // get
 app.get('/dessert', dessertController.getDessertData);
@@ -66,6 +69,7 @@ app.get('/custom/ingredient', customController.getIngredientCustomData);
 
 app.get('/order', getOrder)
 app.get('/user/client', getClient)
+app.get('/user/info', getInfoUser)
 app.post('/user/picker/id', postPickerById)
 
 
