@@ -55,8 +55,13 @@ const { deleteIngredient } = require('./src/AdminRequests/deleteIngredientContro
 
 const API_PORT = 3000;
 
-// Apply the JWT middleware to routes that require authentication
+// Apply the JWT middleware to routes that require admin authentication
 app.use(['/user/delete', '/custom/ingredient/delete', '/user/client', '/custom/ingredient/update'], verifyToken('admin'));
+// Apply the JWT middleware to routes that require picker authentication
+app.use(['/order/state/update', '/user/picker/id', '/order'], verifyToken('picker'));
+// Apply the JWT middleware to routes that require user authentication
+app.use(['/dessert', '/appetizer', '/plate', '/product','/custom/base','/custom/ingredient','/custom/ingredient','/user/info','/user/create',
+        '/order/create', '/order/details','/order/id','/user/client/id'], verifyToken('user'));
 
 // get
 app.get('/dessert', dessertController.getDessertData);
@@ -75,6 +80,7 @@ app.post('/user/picker/id', postPickerById)
 
 // post
 app.post('/user/create', postCreateUser)
+// doesn't get middleware ! because we need this request to get the jwt token
 app.post('/login', loginController.postLogin)
 app.post('/order/create', postCreateOrder)
 app.post('/order/details', postOrderDetails)
