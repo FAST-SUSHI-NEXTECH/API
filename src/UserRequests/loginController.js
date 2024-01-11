@@ -39,6 +39,7 @@
  */
 const pool = require('../dbConnection');
 const bcrypt = require('bcrypt');
+const { generateToken } = require('../generateToken');
 
 const postLogin = async (req, res) => {
     try {
@@ -47,7 +48,7 @@ const postLogin = async (req, res) => {
 
         // Query the database to retrieve the hashed password for the given username
         const query = "SELECT * FROM user WHERE username = ?";
-        const result = await connection.query(query, [username]);
+        const result = await connection.query(query, username);
 
         if (result.length === 0) {
             // User not found
@@ -59,8 +60,7 @@ const postLogin = async (req, res) => {
             const passwordMatch = await bcrypt.compare(password, storedHashedPassword);
 
             if (passwordMatch) {
-                // Passwords match, authentication successful
-                res.json(result);
+                res.json(generateToken(result[0].id_user, result[0].username, result[0].permission));
             } else {
                 // Passwords do not match
                 res.status(401).json({ message: 'Authentication failed. Invalid username or password.' });
