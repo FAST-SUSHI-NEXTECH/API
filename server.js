@@ -41,6 +41,8 @@ const loginController = require('./src/UserRequests/loginController.js');
 const { postCreateUser } = require('./src/UserRequests/createUserController.js');
 const { postCreateOrder } = require('./src/OrderRequests/createOrderController.js');
 const { postClientById } = require('./src/AdminRequests/getClientByIdController.js');
+const { getProductById } = require('./src/MenuRequests/productByIdController.js');
+
 
 
 
@@ -69,6 +71,8 @@ app.get('/dessert', dessertController.getDessertData);
 app.get('/appetizer', appetizerController.getAppetizerData);
 app.get('/plate', platController.getPlatData);
 app.get('/product', getAllProduct)
+app.post('/product/id', getProductById)
+
 
 app.get('/custom/base', customController.getBaseCustomData);
 app.get('/custom/ingredient', customController.getIngredientCustomData);
