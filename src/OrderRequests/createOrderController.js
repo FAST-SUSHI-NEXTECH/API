@@ -15,6 +15,8 @@ const pool = require('../dbConnection');
  *     description: Creates a new order for a client
  *     tags:
  *       - Order
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:

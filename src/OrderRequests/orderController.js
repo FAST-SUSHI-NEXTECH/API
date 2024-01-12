@@ -9,6 +9,8 @@ const pool = require('../dbConnection');
  *     description: Returns a list of all customer orders
  *     tags:
  *       - Order
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: Successful response

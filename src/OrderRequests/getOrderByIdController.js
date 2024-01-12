@@ -9,6 +9,8 @@ const pool = require('../dbConnection');
  *     description: Returns details of a customer order based on the provided order ID.
  *     tags:
  *       - Order
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:

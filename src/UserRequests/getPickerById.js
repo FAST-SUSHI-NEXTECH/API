@@ -8,6 +8,8 @@ const pool = require('../dbConnection');
  *     description: Returns details of a picker based on the provided ID.
  *     tags:
  *       - User
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: query
  *         name: id_picker

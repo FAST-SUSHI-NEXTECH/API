@@ -8,6 +8,8 @@ const pool = require('../dbConnection');
  *     description: Updates the state of a customer order
  *     tags:
  *       - Order
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
