@@ -61,10 +61,10 @@ app.use(['/user/delete', '/custom/ingredient/delete', '/user/client', '/custom/i
 // Apply the JWT middleware to routes that require picker authentication
 app.use(['/order/state/update', '/user/picker/id', '/order'], verifyToken('picker'));
 // Apply the JWT middleware to routes that require user authentication
-app.use(['/dessert', '/appetizer', '/plate', '/product','/custom/base','/custom/ingredient','/custom/ingredient','/user/info','/user/create',
-        '/order/create', '/order/details','/order/id','/user/client/id'], verifyToken('user'));
+app.use(['/user/info','/user/create','/order/create', '/order/details','/order/id','/user/client/id'], verifyToken('user'));
 
 // get
+// doesn't get middleware ! Because we need these requests to retrieve data for 
 app.get('/dessert', dessertController.getDessertData);
 app.get('/appetizer', appetizerController.getAppetizerData);
 app.get('/plate', platController.getPlatData);
@@ -72,6 +72,7 @@ app.get('/product', getAllProduct)
 
 app.get('/custom/base', customController.getBaseCustomData);
 app.get('/custom/ingredient', customController.getIngredientCustomData);
+// Stop here! (about no middleware)
 
 app.get('/order', getOrder)
 app.get('/user/client', getClient)
@@ -81,7 +82,7 @@ app.post('/user/picker/id', postPickerById)
 
 // post
 app.post('/user/create', postCreateUser)
-// doesn't get middleware ! because we need this request to get the jwt token
+// doesn't get middleware ! Because we need this request to get the jwt token
 app.post('/login', loginController.postLogin)
 app.post('/order/create', postCreateOrder)
 app.post('/order/details', postOrderDetails)
