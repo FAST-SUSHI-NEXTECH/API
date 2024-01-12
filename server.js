@@ -61,7 +61,7 @@ app.use(['/user/delete', '/custom/ingredient/delete', '/user/client', '/custom/i
 // Apply the JWT middleware to routes that require picker authentication
 app.use(['/order/state/update', '/user/picker/id', '/order'], verifyToken('picker'));
 // Apply the JWT middleware to routes that require user authentication
-app.use(['/user/info','/user/create','/order/create', '/order/details','/order/id','/user/client/id'], verifyToken('user'));
+app.use(['/user/info','/order/create', '/order/details','/order/id','/user/client/id'], verifyToken('user'));
 
 // get
 // doesn't get middleware ! Because we need these requests to retrieve data for 
