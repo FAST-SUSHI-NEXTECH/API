@@ -11,10 +11,13 @@ const pool = require('../dbConnection');
  *     security:
  *       - bearerAuth: []
  *     parameters:
- *       - in: query
- *         name: id_picker
+ *       - in: body
+ *         name: body
  *         schema:
- *           type: integer
+ *           type: object
+ *           properties:
+ *             id_picker:
+ *               type: integer
  *         required: true
  *         description: The ID of the picker to retrieve.
  *     responses:
@@ -31,6 +34,7 @@ const pool = require('../dbConnection');
  *           application/json:
  *             example: { message: 'Internal server error.' }
  */
+
 
 const postPickerById = async (req, res) => {
     try {
