@@ -67,7 +67,7 @@ const postCreateOrder = async (req, res) => {
             const lastOrderIdResult = await connection.query('SELECT LAST_INSERT_ID() as last_id');
             const lastOrderId = parseInt(lastOrderIdResult[0].last_id, 10);
 
-            if (order_content && order_content >= 0) {
+            if (order_content && order_content.length > 0) {
                 for (const id_content of order_content) {
                     const insertOrderContentQuery = `INSERT INTO order_content (id_order, id_content) VALUES (?, ?)`;
                     const res = await connection.query(insertOrderContentQuery, [lastOrderId, id_content]);
