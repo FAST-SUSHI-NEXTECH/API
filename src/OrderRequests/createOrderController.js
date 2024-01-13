@@ -1,5 +1,3 @@
-const pool = require('../dbConnection');
-
 /**
  * @swagger
  * tags:
@@ -24,16 +22,13 @@ const pool = require('../dbConnection');
  *           schema:
  *             type: object
  *             properties:
- *               id_client:
- *                 type: integer
- *                 description: The ID of the client placing the order
- *               order_contents:
+ *               order_content:
  *                 type: array
  *                 items:
  *                   type: integer
  *                 description: An array of content IDs to associate with the order
  *             required:
- *               - id_client
+ *               - order_content
  *     responses:
  *       201:
  *         description: Order and Order Content created successfully
@@ -51,30 +46,41 @@ const pool = require('../dbConnection');
  *           application/json:
  *             example: { message: 'Internal server error.' }
  */
+const pool = require('../dbConnection');
+const { decodeToken } = require('../jwtDecode');
+
 
 const postCreateOrder = async (req, res) => {
     try {
         const connection = await pool.getConnection();
-        const { id_client, order_contents } = req.body;
 
-        // Insert into customer_order
+        const { id } = decodeToken(req, res);
+
+
+        const { order_content } = req.body;
+
         const insertOrderQuery = `INSERT INTO customer_order (id_client, order_state, date) VALUES (?, 1, NOW())`;
-        const orderResult = await connection.query(insertOrderQuery, [id_client]);
+        const orderResult = await connection.query(insertOrderQuery, [id]);
 
         if (orderResult.affectedRows > 0) {
             // Get the last auto-incremented id_order
             const lastOrderIdResult = await connection.query('SELECT LAST_INSERT_ID() as last_id');
             const lastOrderId = parseInt(lastOrderIdResult[0].last_id, 10);
 
-            // Insert into order_content
-            if (order_contents && order_contents.length > 0) {
-                for (const id_content of order_contents) {
+            if (order_content && order_content >= 0) {
+                for (const id_content of order_content) {
                     const insertOrderContentQuery = `INSERT INTO order_content (id_order, id_content) VALUES (?, ?)`;
-                    await connection.query(insertOrderContentQuery, [lastOrderId, id_content]);
+                    const res = await connection.query(insertOrderContentQuery, [lastOrderId, id_content]);
+
+                    if (res.affectedRows !== 0) {
+                        connection.release();
+                        res.status(201).json({ message: 'Order and Order Content inserted successfully.' });
+                    } else {
+                        connection.release();
+                        res.status(400).json({ message: 'Failed to insert Order content or Order.' });
+                    }
                 }
 
-                connection.release();
-                res.status(201).json({ message: 'Order and Order Content inserted successfully.' });
             } else {
                 connection.release();
                 res.status(201).json({ message: 'Order inserted successfully.' });
