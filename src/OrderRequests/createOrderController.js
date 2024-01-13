@@ -53,36 +53,37 @@ const { decodeToken } = require('../jwtDecode');
 const postCreateOrder = async (req, res) => {
     try {
         const connection = await pool.getConnection();
-
         const { id } = decodeToken(req, res);
-
-
         const { order_content } = req.body;
 
         const insertOrderQuery = `INSERT INTO customer_order (id_client, order_state, date) VALUES (?, 1, NOW())`;
         const orderResult = await connection.query(insertOrderQuery, [id]);
 
         if (orderResult.affectedRows > 0) {
-            // Get the last auto-incremented id_order
             const lastOrderIdResult = await connection.query('SELECT LAST_INSERT_ID() as last_id');
             const lastOrderId = parseInt(lastOrderIdResult[0].last_id, 10);
+
+            let sendingMessage = true;
 
             if (order_content && order_content.length > 0) {
                 for (const id_content of order_content) {
                     const insertOrderContentQuery = `INSERT INTO order_content (id_order, id_content) VALUES (?, ?)`;
-                    const res = await connection.query(insertOrderContentQuery, [lastOrderId, id_content]);
+                    const response = await connection.query(insertOrderContentQuery, [lastOrderId, id_content]);
 
-                    if (res.affectedRows !== 0) {
-                        connection.release();
-                        res.status(201).json({ message: 'Order and Order Content inserted successfully.' });
+                    if (response.affectedRows !== 0) {
+                        sendingMessage = false;
                     } else {
                         connection.release();
-                        res.status(400).json({ message: 'Failed to insert Order content or Order.' });
+                        return res.status(400).json({ message: 'Failed to insert Order content or Order.' });
                     }
                 }
+            }
 
+            connection.release();
+
+            if (sendingMessage) {
+                res.status(201).json({ message: 'Order and Order Content inserted successfully.' });
             } else {
-                connection.release();
                 res.status(201).json({ message: 'Order inserted successfully.' });
             }
         } else {
@@ -94,5 +95,4 @@ const postCreateOrder = async (req, res) => {
         res.status(500).json({ message: 'Internal server error.' });
     }
 };
-
 module.exports = { postCreateOrder };
