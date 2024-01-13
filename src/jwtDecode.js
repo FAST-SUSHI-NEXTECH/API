@@ -19,7 +19,6 @@ function decodeToken(req, res) {
 
         // Check if the decoded payload has the expected username and role
     if (decoded && decoded.username && decoded.id && decoded.perm) {
-        console.log(decoded.id, decoded.username, decoded.perm)
         return { id: decoded.id, username: decoded.username, perm: decoded.perm };
     }
 
