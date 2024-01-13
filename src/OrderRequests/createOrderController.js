@@ -12,7 +12,7 @@ const pool = require('../dbConnection');
  * /order/create:
  *   post:
  *     summary: Create a new order
- *     description: Creates a new order for a client
+ *     description: Creates a new order for a client and associates content with the order.
  *     tags:
  *       - Order
  *     security:
@@ -27,19 +27,24 @@ const pool = require('../dbConnection');
  *               id_client:
  *                 type: integer
  *                 description: The ID of the client placing the order
+ *               order_contents:
+ *                 type: array
+ *                 items:
+ *                   type: integer
+ *                 description: An array of content IDs to associate with the order
  *             required:
  *               - id_client
  *     responses:
  *       201:
- *         description: Order created successfully
+ *         description: Order and Order Content created successfully
  *         content:
  *           application/json:
- *             example: { message: 'Order created successfully.' }
+ *             example: { message: 'Order and Order Content created successfully.' }
  *       400:
- *         description: Failed to create order
+ *         description: Failed to create Order or Order Content
  *         content:
  *           application/json:
- *             example: { message: 'Failed to create order.' }
+ *             example: { message: 'Failed to create Order or Order Content.' }
  *       500:
  *         description: Internal server error
  *         content:
@@ -50,17 +55,32 @@ const pool = require('../dbConnection');
 const postCreateOrder = async (req, res) => {
     try {
         const connection = await pool.getConnection();
-        const { id_client } = req.body;
+        const { id_client, order_contents } = req.body;
 
-        // we only insert these values, the value id_order is auto-increment, id_picker will be set when a picker will take the order and update the state
-        const query = `INSERT INTO customer_order (id_client, order_state, date) VALUES (?, 1, NOW())`;
+        // Insert into customer_order
+        const insertOrderQuery = `INSERT INTO customer_order (id_client, order_state, date) VALUES (?, 1, NOW())`;
+        const orderResult = await connection.query(insertOrderQuery, [id_client]);
 
-        const result = await connection.query(query, [id_client]);
-        connection.release();
+        if (orderResult.affectedRows > 0) {
+            // Get the last auto-incremented id_order
+            const lastOrderIdResult = await connection.query('SELECT LAST_INSERT_ID() as last_id');
+            const lastOrderId = parseInt(lastOrderIdResult[0].last_id, 10);
 
-        if (result.affectedRows > 0) {
-            res.status(201).json({ message: 'Order inserted successfully.' });
+            // Insert into order_content
+            if (order_contents && order_contents.length > 0) {
+                for (const id_content of order_contents) {
+                    const insertOrderContentQuery = `INSERT INTO order_content (id_order, id_content) VALUES (?, ?)`;
+                    await connection.query(insertOrderContentQuery, [lastOrderId, id_content]);
+                }
+
+                connection.release();
+                res.status(201).json({ message: 'Order and Order Content inserted successfully.' });
+            } else {
+                connection.release();
+                res.status(201).json({ message: 'Order inserted successfully.' });
+            }
         } else {
+            connection.release();
             res.status(400).json({ message: 'Failed to insert Order.' });
         }
     } catch (error) {
