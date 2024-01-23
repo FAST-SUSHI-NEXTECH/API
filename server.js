@@ -42,9 +42,7 @@ const { postCreateUser } = require('./src/UserRequests/createUserController.js')
 const { postCreateOrder } = require('./src/OrderRequests/createOrderController.js');
 const { postClientById } = require('./src/AdminRequests/getClientByIdController.js');
 const { getProductById } = require('./src/MenuRequests/productByIdController.js');
-
-
-
+const { postAvatarUser } = require('./src/UserRequests/addPictureController.js');
 
 // put (update)
 const { putStateOrder } = require('../API/src/OrderRequests/stateOrderController.js');
@@ -63,7 +61,7 @@ app.use(['/user/delete', '/custom/ingredient/delete', '/user/client', '/custom/i
 // Apply the JWT middleware to routes that require picker authentication
 app.use(['/order/state/update', '/user/picker/id', '/order'], verifyToken('picker'));
 // Apply the JWT middleware to routes that require user authentication
-app.use(['/user/info','/order/create', '/order/details','/order/id','/user/client/id'], verifyToken('user'));
+app.use(['/user/info','/order/create', '/order/details','/order/id','/user/client/id','/user/upload/avatar'], verifyToken('user'));
 
 // get
 // doesn't get middleware ! Because we need these requests to retrieve data for 
@@ -92,6 +90,7 @@ app.post('/order/create', postCreateOrder)
 app.post('/order/details', postOrderDetails)
 app.post('/order/id', postOrderById)
 app.post('/user/client/id', postClientById)
+app.post('/user/upload/avatar', postAvatarUser)
 
 // put (UPDATE)
 app.put('/order/state/update', putStateOrder)
