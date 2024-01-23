@@ -45,8 +45,6 @@ const postPickerById = async (req, res) => {
         const connection = await pool.getConnection();
         const { id_picker } = req.body;
 
-        console.log("Request Body - id_picker:", id_picker);
-
         const query = `
             SELECT order_picker.id_picker, order_picker.id_user, user.username
             FROM order_picker
@@ -54,8 +52,6 @@ const postPickerById = async (req, res) => {
             WHERE order_picker.id_picker = ?`;
 
         const result = await connection.query(query, [id_picker]);
-
-        console.log("Query Result:", result);
 
         connection.release();
         res.json(result);
