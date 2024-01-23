@@ -42,17 +42,34 @@ const pool = require('../dbConnection');
  */
 
 
-const postOrderDetails= async (req, res) => {
+const postOrderDetails = async (req, res) => {
     try {
         const connection = await pool.getConnection();
 
-        const { id_order } = req.body
+        const { id_order } = req.body;
 
         const query = 'SELECT * FROM order_content WHERE id_order = ?';
-
         const result = await connection.query(query, [id_order]);
         connection.release();
-        res.json(result);
+
+        const output = {};
+        result.forEach(row => {
+            const orderId = row.id_order;
+            const productId = row.id_content;
+
+            if (!output[orderId]) {
+                output[orderId] = [];
+            }
+
+            output[orderId].push(productId);
+        });
+
+
+        const queryProduct = 'SELECT type_product, product_name, price, quantity  FROM product WHERE id_product IN (?)';
+        const endResult = await connection.query(queryProduct, [output[id_order]]);
+        connection.release();
+
+        res.json(endResult);
     } catch (error) {
         console.error(error);
         res.sendStatus(500);
