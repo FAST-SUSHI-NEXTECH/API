@@ -66,7 +66,7 @@ const postAvatarUser = (req, res) => {
 
         const storage = multer.diskStorage({
             destination: function (req, file, cb) {
-                const uploadPath = `/assets/images/${perm}/${id}/${username}`;
+                const uploadPath = `/assets/images/client/${perm}/${id}/${username}`;
                 fs.mkdirSync(uploadPath, { recursive: true });
                 cb(null, uploadPath);
             },
