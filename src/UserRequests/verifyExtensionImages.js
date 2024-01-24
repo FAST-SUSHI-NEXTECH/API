@@ -1,7 +1,7 @@
 const path = require('path');
 
 const verifyExtensionImages = (filename) => {
-    const allowedExtensions = ['.png', '.jpeg', '.jpg'];
+    const allowedExtensions = ['.png'];
 
     const fileExtension = path.extname(filename).toLowerCase();
 
