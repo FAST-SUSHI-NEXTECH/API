@@ -50,6 +50,7 @@ const fs = require('fs');
 const path = require('path');
 const { secretKey } = require('../config');
 const glob = require('glob');
+const sharp = require('sharp');
 const { verifyExtensionImages } = require('./verifyExtensionImages');
 
 const postAvatarUser = (req, res) => {
@@ -103,15 +104,33 @@ const postAvatarUser = (req, res) => {
 
         const upload = multer({ storage: storage }).single('avatar');
 
-        upload(req, res, (err) => {
+        upload(req, res, async (err) => {
             if (err) {
                 console.error('Error uploading file:', err);
                 return res.status(500).json({ error: 'Internal Server Error' });
             }
 
-            res.json({ message: 'File uploaded successfully' });
-        });
+            // Get the path of the uploaded file
+            const filePath = path.join(uploadPath, req.file.filename);
 
+            try {
+                // Create a temporary file for resized image
+                const tempFilePath = path.join(uploadPath, 'temp_avatar_resized.jpg');
+
+                // Resize the image using sharp
+                await sharp(filePath)
+                    .resize(460, 460)
+                    .toFile(tempFilePath);
+
+                // Replace the original file with the resized one
+                fs.renameSync(tempFilePath, filePath);
+
+                res.json({ message: 'File uploaded and resized successfully' });
+            } catch (error) {
+                console.error('Error resizing image:', error);
+                res.status(500).json({ error: 'Internal Server Error' });
+            }
+        });
     } catch (error) {
         console.error('Error:', error);
         res.status(401).json({ error: 'Unauthorized' });
@@ -119,6 +138,8 @@ const postAvatarUser = (req, res) => {
 };
 
 module.exports = { postAvatarUser };
+
+
 
 
 

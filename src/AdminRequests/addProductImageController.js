@@ -51,7 +51,7 @@
 const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
-const glob = require('glob');
+const sharp = require('sharp');
 const { verifyExtensionImages } = require('../UserRequests/verifyExtensionImages');
 
 const postProductImage = (req, res) => {
@@ -62,7 +62,7 @@ const postProductImage = (req, res) => {
         const storage = multer.memoryStorage();
         const upload = multer({ storage: storage }).single('image');
 
-        upload(req, res, (err) => {
+        upload(req, res, async (err) => {
             if (err) {
                 console.error('Error uploading file:', err);
                 return res.status(500).json({ error: 'Internal Server Error' });
@@ -95,14 +95,17 @@ const postProductImage = (req, res) => {
 
             filePath = path.join(uploadPath, `image.${fileExtension}`);
 
-            fs.writeFile(filePath, req.file.buffer, (err) => {
-                if (err) {
-                    console.error('Error writing file:', err);
-                    return res.status(500).json({ error: 'Internal Server Error' });
-                }
+            // Resize the image using sharp
+            try {
+                await sharp(req.file.buffer)
+                    .resize(460, 460)
+                    .toFile(filePath);
+            } catch (error) {
+                console.error('Error resizing image:', error);
+                return res.status(500).json({ error: 'Internal Server Error' });
+            }
 
-                res.json({ message: 'File uploaded successfully' });
-            });
+            res.json({ message: 'File uploaded and resized successfully' });
         });
 
     } catch (error) {
