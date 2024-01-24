@@ -47,7 +47,9 @@
 const multer = require('multer');
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
+const path = require('path');
 const { secretKey } = require('../config');
+const glob = require('glob');
 const { verifyExtensionImages } = require('./verifyExtensionImages');
 
 const postAvatarUser = (req, res) => {
@@ -62,11 +64,19 @@ const postAvatarUser = (req, res) => {
 
         const decodedToken = jwt.verify(token, secretKey);
 
-        const { username, id, perm } = decodedToken;
+        const { id } = decodedToken;
+
+        const uploadPath = path.join(`/assets/images/client/${id}/avatar/`);
+
+        const existingAvatarPath = path.join(uploadPath, 'avatar.*');
+        const existingAvatarFiles = glob.sync(existingAvatarPath);
+        
+        if (existingAvatarFiles.length > 0) {
+            fs.unlinkSync(existingAvatarFiles[0]);
+        }
 
         const storage = multer.diskStorage({
             destination: function (req, file, cb) {
-                const uploadPath = `/assets/images/client/${perm}/${id}/${username}`;
                 fs.mkdirSync(uploadPath, { recursive: true });
                 cb(null, uploadPath);
             },
@@ -85,7 +95,9 @@ const postAvatarUser = (req, res) => {
                     return res.status(400).json({ error: 'Invalid file extension' });
                 }
 
-                cb(null, `${cleanedFilename}`);
+                const fileExtension = cleanedFilename.split('.').pop();
+
+                cb(null, `avatar.${fileExtension}`);
             }
         });
 
@@ -101,12 +113,13 @@ const postAvatarUser = (req, res) => {
         });
 
     } catch (error) {
-        console.error('Error decoding JWT token:', error);
+        console.error('Error:', error);
         res.status(401).json({ error: 'Unauthorized' });
     }
 };
 
 module.exports = { postAvatarUser };
+
 
 
 
