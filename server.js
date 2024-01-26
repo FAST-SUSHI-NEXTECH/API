@@ -32,6 +32,8 @@ const { getClient } = require('./src/AdminRequests/getClientController.js');
 const { postPickerById } = require('./src/UserRequests/getPickerById.js');
 const { getAllProduct } = require('./src/MenuRequests/getAllProductsController.js');
 const { getInfoUser } = require('./src/UserRequests/getInfoUserController.js');
+const { getOrderStateByIdUser } = require('./src/OrderRequests/getOrderStateByIdUserController.js');
+
 
 
 
@@ -63,7 +65,7 @@ app.use(['/user/delete', '/custom/ingredient/delete', '/user/client', '/custom/i
 // Apply the JWT middleware to routes that require picker authentication
 app.use(['/order/state/update', '/user/picker/id', '/order'], verifyToken('picker'));
 // Apply the JWT middleware to routes that require user authentication
-app.use(['/user/info','/order/create', '/order/details','/order/id','/user/client/id','/user/upload/avatar'], verifyToken('user'));
+app.use(['/user/info','/order/create', '/order/details','/order/id','/user/client/id','/user/upload/avatar','/order/state'], verifyToken('user'));
 
 // get
 // doesn't get middleware ! Because we need these requests to retrieve data for 
@@ -82,6 +84,7 @@ app.get('/order', getOrder)
 app.get('/user/client', getClient)
 app.get('/user/info', getInfoUser)
 app.post('/user/picker/id', postPickerById)
+app.post('/order/state', getOrderStateByIdUser)
 
 
 // post
