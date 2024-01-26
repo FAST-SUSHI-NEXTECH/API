@@ -24,7 +24,7 @@ function verifyToken(mode) {
             if (decoded && decoded.username && decoded.id && decoded.perm) {
                 switch (mode) {
                     case 'admin':
-                        if (secretUsername === decoded.username && decoded.perm === 3) {
+                        if (decoded.perm === 3) {
                             return next(); 
                         } else {
                             return res.status(403).json({ message: 'Forbidden: Insufficient permissions' });
