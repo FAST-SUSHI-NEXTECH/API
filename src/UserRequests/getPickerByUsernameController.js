@@ -1,3 +1,49 @@
+/**
+ * @swagger
+ * tags:
+ *   - name: Picker
+ *     description: API operations related to pickers
+ */
+
+/**
+ * @swagger
+ * /picker/getByIdByUsername:
+ *   post:
+ *     summary: Get picker ID by username
+ *     description: Retrieves the picker ID based on the provided username.
+ *     tags:
+ *       - Picker
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                 type: string
+ *     responses:
+ *       '200':
+ *         description: Successful operation
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id_picker:
+ *                   type: integer
+ *                   description: The ID of the picker corresponding to the provided username.
+ *       '500':
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: Internal Server Error
+ */
+
+
 const pool = require('../dbConnection'); 
 
 
