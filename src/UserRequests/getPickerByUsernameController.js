@@ -1,8 +1,8 @@
 /**
  * @swagger
  * tags:
- *   - name: Picker
- *     description: API operations related to pickers
+ *   - name: User
+ *     description: API operations related to user
  */
 
 /**
