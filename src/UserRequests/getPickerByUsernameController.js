@@ -12,7 +12,7 @@
  *     summary: Get picker ID by username
  *     description: Retrieves the picker ID based on the provided username.
  *     tags:
- *       - Picker
+ *       - User
  *     security:
  *       - bearerAuth: []
  *     requestBody:
