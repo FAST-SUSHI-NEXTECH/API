@@ -51,7 +51,7 @@ const getOrderStateByIdUser = async (req, res) => {
         const connection = await pool.getConnection();
         const { id_client } = req.body;        
 
-        const query = 'SELECT order_state FROM customer_order WHERE id_client = ? ORDER BY date DESC LIMIT 1';
+        const query = 'SELECT order_state, id_order FROM customer_order WHERE id_client = ? ORDER BY date DESC LIMIT 1';
 
         const result = await connection.query(query,[id_client]);
         connection.release();
