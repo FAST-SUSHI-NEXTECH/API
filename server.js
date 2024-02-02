@@ -17,7 +17,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 // Documentation
-app.use('/home', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use('/doc/api', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 //get
 const dessertController = require('./src/MenuRequests/dessertController.js');
