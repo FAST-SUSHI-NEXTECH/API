@@ -71,6 +71,11 @@ app.use(['/order/state/update', '/user/picker/id', '/order', '/order/picker/upda
 // Apply the JWT middleware to routes that require user authentication
 app.use(['/user/info','/order/create', '/order/details','/order/id','/user/client/id','/user/upload/avatar','/order/state'], verifyToken('user'));
 
+// Redirect / to /home
+app.get('/', (req, res) => {
+    res.redirect('/doc/api');
+});
+
 // get
 // doesn't get middleware ! Because we need these requests to retrieve data for 
 app.get('/dessert', dessertController.getDessertData);
