@@ -1,3 +1,63 @@
+/**
+ * @swagger
+ * /user/update:
+ *   put:
+ *     summary: Update a user
+ *     description: Updates a user based on the provided information
+ *     tags:
+ *       - User
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               user_id:
+ *                 type: integer
+ *               last_name:
+ *                 type: string
+ *               first_name:
+ *                 type: string
+ *               username:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               tel:
+ *                 type: string
+ *             required:
+ *               - user_id
+ *     responses:
+ *       200:
+ *         description: Update successful
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: "Update successful"
+ *       400:
+ *         description: Bad request, missing or invalid parameters
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: "Error: Missing user_id parameter"
+ *       401:
+ *         description: Update failed, wrong user_id or values
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: "Update failed, wrong user_id or values"
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: "Internal server error."
+ */
+
+
+
 const pool = require('../dbConnection');
 
 const bcrypt = require('bcrypt');
