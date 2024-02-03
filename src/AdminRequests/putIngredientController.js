@@ -1,5 +1,3 @@
-const pool = require('../dbConnection');
-
 /**
  * @swagger
  * /custom/ingredient/update:
@@ -50,6 +48,8 @@ const pool = require('../dbConnection');
  *           application/json:
  *             example: { message: 'Internal server error.' }
  */
+const pool = require('../dbConnection');
+
 
 const putIngredient = async (req, res) => {
     try {
