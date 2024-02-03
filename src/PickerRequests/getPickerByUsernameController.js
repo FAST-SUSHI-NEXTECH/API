@@ -1,18 +1,11 @@
 /**
  * @swagger
- * tags:
- *   - name: User
- *     description: API operations related to user
- */
-
-/**
- * @swagger
  * /user/picker/username:
  *   post:
  *     summary: Get picker ID by username
  *     description: Retrieves the picker ID based on the provided username.
  *     tags:
- *       - User
+ *       - Picker
  *     security:
  *       - bearerAuth: []
  *     requestBody:
