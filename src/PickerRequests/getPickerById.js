@@ -1,5 +1,3 @@
-const pool = require('../dbConnection'); 
-
 /**
  * @swagger
  * /user/picker/id:
@@ -7,7 +5,7 @@ const pool = require('../dbConnection');
  *     summary: Get picker by ID
  *     description: Returns details of a picker based on the provided ID.
  *     tags:
- *       - User
+ *       - Picker
  *     security:
  *       - bearerAuth: []
  *     requestBody:
@@ -37,8 +35,7 @@ const pool = require('../dbConnection');
  */
 
 
-
-
+const pool = require('../dbConnection'); 
 
 const postPickerById = async (req, res) => {
     try {
