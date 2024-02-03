@@ -78,12 +78,12 @@ const putUser = async (req, res) => {
 
         let newValue = password;
         
+        const parameters = [last_name, first_name, username, newValue, email, tel];
+        const placeholders = [];
+
         if (password !== undefined) {
             newValue = await bcrypt.hash(password, saltRounds);
         }
-        
-        const parameters = [last_name, first_name, username, newValue, email, tel];
-        const placeholders = [];
 
         // for every parameter if a parameter is vide, delete it from the list
         const columns = ['last_name', 'first_name', 'username', 'password', 'email', 'tel'];
