@@ -5,7 +5,9 @@
  *     summary: Update a user
  *     description: Updates a user based on the provided information
  *     tags:
- *       - User
+ *       - Admin
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
