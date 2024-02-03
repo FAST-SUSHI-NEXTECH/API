@@ -18,7 +18,7 @@ const options = {
             },
         },
     },
-    apis: ['./src/MenuRequests/*.js', './src/OrderRequests/*.js', './src/UserRequests/*.js', './src/AdminRequests/*.js'],
+    apis: ['./src/MenuRequests/*.js', './src/OrderRequests/*.js', './src/PickerRequests/*.js', './src/UserRequests/*.js', './src/AdminRequests/*.js'],
 };
 
 const swaggerSpec = swaggerJSDoc(options);
