@@ -5,7 +5,7 @@ const pool = require('../dbConnection');
  * @swagger
  * /order/id:
  *   post:
- *     summary: Get order by ID
+ *     summary: Get order by Id of the order
  *     description: Returns details of a customer order based on the provided order ID.
  *     tags:
  *       - Order
