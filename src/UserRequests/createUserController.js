@@ -99,7 +99,7 @@ const postCreateUser = async (req, res) => {
             res.status(400).json({ message: 'Failed to insert user.' });
         }
     } catch (error) {
-        console.error(error);
+
         res.status(500).json({ message: 'Internal server error.' });
     }
 };

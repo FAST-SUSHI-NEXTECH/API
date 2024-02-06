@@ -71,7 +71,7 @@ const postOrderDetails = async (req, res) => {
 
         res.json(endResult);
     } catch (error) {
-        console.error(error);
+
         res.sendStatus(500);
     }
 };

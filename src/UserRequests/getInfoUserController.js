@@ -56,7 +56,7 @@ const getInfoUser = async (req, res) => {
 
         connection.release();
     } catch (error) {
-        console.error(error);
+
         res.sendStatus(500);
     }
 };
