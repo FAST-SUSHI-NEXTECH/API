@@ -93,7 +93,7 @@ app.get('/product', getAllProduct)
 app.post('/product/id', getProductById)
 
 
-app.get('/custom/base', customController.getBaseCustomData);
+// app.get('/custom/base', customController.getBaseCustomData);
 // app.get('/custom/ingredient', customController.getIngredientCustomData);
 
 // Stop here! (no middleware above us)
