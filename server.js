@@ -24,7 +24,7 @@ const dessertController = require('./src/MenuRequests/dessertController.js');
 const appetizerController = require('./src/MenuRequests/appetizerController.js');
 const platController = require('./src/MenuRequests/platController.js')
 
-const customController = require('./src/MenuRequests/customController.js');
+// const customController = require('./src/MenuRequests/customController.js');
 
 const { getOrder } = require('./src/OrderRequests/orderController.js');
 const { postOrderById } = require('./src/OrderRequests/getOrderByIdController.js');
@@ -59,7 +59,7 @@ const { postCountOrderByIdPicker } = require('./src/PickerRequests/totalOrderByP
 
 // put (update)
 const { putStateOrder } = require('../API/src/OrderRequests/stateOrderController.js');
-const { putIngredient } = require('./src/AdminRequests/putIngredientController.js');
+// const { putIngredient } = require('./src/AdminRequests/putIngredientController.js');
 const { putPickerToOrderById } = require('./src/OrderRequests/putPickerToOrderByIdController.js');
 const { putUser } = require('./src/AdminRequests/updateUserController.js');
 
@@ -67,13 +67,13 @@ const { putUser } = require('./src/AdminRequests/updateUserController.js');
 
 //delete
 const { deleteUser } = require('./src/AdminRequests/deleteUserController.js');
-const { deleteIngredient } = require('./src/AdminRequests/deleteIngredientController.js');
+// const { deleteIngredient } = require('./src/AdminRequests/deleteIngredientController.js');
 
 // need to change port for prod
 const API_PORT = 3001;
 
 // Apply the JWT middleware to routes that require admin authentication
-app.use(['/user/delete', '/custom/ingredient/delete', '/user/client', '/custom/ingredient/update', '/product/upload/image', '/user/update', '/user/count', '/order/count'], verifyToken('admin'));
+app.use(['/user/delete', '/user/client', '/product/upload/image', '/user/update', '/user/count', '/order/count'], verifyToken('admin'));
 // Apply the JWT middleware to routes that require picker authentication
 app.use(['/order/state/update', '/user/picker/id', '/order/all', '/order/picker/update', '/user/picker/username', '/user/picker/leaderboard', '/order/picker/count'], verifyToken('picker'));
 // Apply the JWT middleware to routes that require user authentication
@@ -94,7 +94,8 @@ app.post('/product/id', getProductById)
 
 
 app.get('/custom/base', customController.getBaseCustomData);
-app.get('/custom/ingredient', customController.getIngredientCustomData);
+// app.get('/custom/ingredient', customController.getIngredientCustomData);
+
 // Stop here! (no middleware above us)
 
 app.get('/order/all', getOrder)
@@ -126,13 +127,13 @@ app.post('/order/picker/count', postCountOrderByIdPicker)
 
 // put (UPDATE)
 app.put('/order/state/update', putStateOrder)
-app.put('/custom/ingredient/update', putIngredient)
+// app.put('/custom/ingredient/update', putIngredient)
 app.put('/order/picker/update', putPickerToOrderById)
 app.put('/user/update', putUser)
 
 //delete
 app.delete('/user/delete', deleteUser)
-app.delete('/custom/ingredient/delete', deleteIngredient)
+// app.delete('/custom/ingredient/delete', deleteIngredient)
 
 app.listen(API_PORT, () => {
     console.log('Server listening on port:', API_PORT);
