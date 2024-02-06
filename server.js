@@ -73,7 +73,7 @@ const API_PORT = 3001;
 // Apply the JWT middleware to routes that require admin authentication
 app.use(['/user/delete', '/custom/ingredient/delete', '/user/client', '/custom/ingredient/update', '/product/upload/image', '/user/update'], verifyToken('admin'));
 // Apply the JWT middleware to routes that require picker authentication
-app.use(['/order/state/update', '/user/picker/id', '/order', '/order/picker/update', '/user/picker/username', '/user/picker/leaderboard'], verifyToken('picker'));
+app.use(['/order/state/update', '/user/picker/id', '/order/all', '/order/picker/update', '/user/picker/username', '/user/picker/leaderboard'], verifyToken('picker'));
 // Apply the JWT middleware to routes that require user authentication
 app.use(['/user/info','/order/create', '/order/details','/order/id','/user/client/id','/user/upload/avatar','/order/state', '/order/id/user'], verifyToken('user'));
 
@@ -95,7 +95,7 @@ app.get('/custom/base', customController.getBaseCustomData);
 app.get('/custom/ingredient', customController.getIngredientCustomData);
 // Stop here! (no middleware above us)
 
-app.get('/order', getOrder)
+app.get('/order/all', getOrder)
 app.get('/user/client', getClient)
 app.get('/user/info', getInfoUser)
 app.get('/order/id/user', getOrderByIdClient)
