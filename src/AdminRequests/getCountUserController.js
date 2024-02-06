@@ -2,8 +2,8 @@
  * @swagger
  * /user/count:
  *   get:
- *     summary: Get all clients
- *     description: Returns a list of all clients with permission level 1
+ *     summary: Get a count of total user
+ *     description: Returns a total of all user
  *     tags:
  *       - Admin
  *     security:
