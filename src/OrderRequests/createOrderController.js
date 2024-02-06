@@ -70,22 +70,28 @@ const postCreateOrder = async (req, res) => {
             let sendingMessage = true;
 
             if (order_content && order_content.length > 0) {
-                for (const id_content of order_content) {
-                    const insertOrderContentQuery = `INSERT INTO order_content (id_order, id_content) VALUES (?, ?)`;
-                    const response = await connection.query(insertOrderContentQuery, [lastOrderId, id_content]);
+                if (order_content.length === 1 && order_content[0] === '') {
+                    connection.release();
+                    res.status(422).json({ message: 'Bad request: You must have at least one article in your cart!' });
+                } 
+                else {
+                    for (const id_content of order_content) {
+                        const insertOrderContentQuery = `INSERT INTO order_content (id_order, id_content) VALUES (?, ?)`;
+                        const response = await connection.query(insertOrderContentQuery, [lastOrderId, id_content]);
 
-                    if (response.affectedRows !== 0) {
-                        sendingMessage = false;
-                    } else {
-                        connection.release();
-                        return res.status(400).json({ message: 'Failed to insert Order content or Order.' });
+                        if (response.affectedRows !== 0) {
+                            sendingMessage = false;
+                        } else {
+                            connection.release();
+                            return res.status(400).json({ message: 'Failed to insert Order content or Order.' });
+                        }
                     }
-                }
 
-                if (sendingMessage) {
-                    res.status(201).json({ message: 'Order and Order Content inserted successfully.' });
-                } else {
-                    res.status(201).json({ message: 'Order inserted successfully.' });
+                    if (sendingMessage) {
+                        res.status(201).json({ message: 'Order and Order Content inserted successfully.' });
+                    } else {
+                        res.status(201).json({ message: 'Order inserted successfully.' });
+                    }
                 }
             } else {
                 connection.release();
