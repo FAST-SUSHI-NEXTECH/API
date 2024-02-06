@@ -65,9 +65,7 @@ const getLeaderboard = async (req, res) => {
 
         if (result.length === 0) {
             res.status(401).json({ message: 'Authentication failed. Invalid username or password.' });
-        } else {
-            console.log(result);
-            
+        } else {            
             const serializedResult = JSON.parse(JSON.stringify(result, (key, value) =>
                         typeof value === 'bigint' ? value.toString() : value
             ));
