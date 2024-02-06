@@ -65,7 +65,7 @@ const postOrderDetails = async (req, res) => {
         });
 
 
-        const queryProduct = 'SELECT type_product, product_name, price, quantity  FROM product WHERE id_product IN (?)';
+        const queryProduct = 'SELECT id_product, type_product, product_name, price, quantity  FROM product WHERE id_product IN (?)';
         const endResult = await connection.query(queryProduct, [output[id_order]]);
         connection.release();
 
