@@ -38,7 +38,6 @@ const getOrderCount = async (req, res) => {
 
         res.status(200).json(serializedResult);
     } catch (error) {
-        console.error(error);
         res.sendStatus(500);
     }
 };

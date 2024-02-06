@@ -104,7 +104,6 @@ const postCreateOrder = async (req, res) => {
             res.status(400).json({ message: 'Failed to insert Order.' });
         }
     } catch (error) {
-        console.error(error);
         res.status(500).json({ message: 'Internal server error.' });
     }
 };

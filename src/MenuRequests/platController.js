@@ -23,7 +23,6 @@ const getPlatData = async (req, res) => {
         connection.release();
         res.json(users);
     } catch (error) {
-        console.error(error);
         res.sendStatus(500);
     }
 };

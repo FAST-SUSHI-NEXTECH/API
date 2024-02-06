@@ -53,7 +53,6 @@ const postClientById = async (req, res) => {
         connection.release();
         res.json(result);
     } catch (error) {
-        console.error(error);
         res.sendStatus(500);
     }
 };

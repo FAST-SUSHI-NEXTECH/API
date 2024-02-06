@@ -64,7 +64,6 @@ const postProductImage = (req, res) => {
 
         upload(req, res, async (err) => {
             if (err) {
-                console.error('Error uploading file:', err);
                 return res.status(500).json({ error: 'Internal Server Error' });
             }
 
@@ -84,7 +83,6 @@ const postProductImage = (req, res) => {
             try {
                 verifyExtensionImages(cleanedFilename);
             } catch (error) {
-                console.error('Error verifying file extension:', error);
                 return res.status(400).json({ error: 'Invalid file extension' });
             }
 
@@ -101,7 +99,6 @@ const postProductImage = (req, res) => {
                     .resize(460, 460)
                     .toFile(filePath);
             } catch (error) {
-                console.error('Error resizing image:', error);
                 return res.status(500).json({ error: 'Internal Server Error' });
             }
 
@@ -109,7 +106,6 @@ const postProductImage = (req, res) => {
         });
 
     } catch (error) {
-        console.error('Error:', error);
         res.status(401).json({ error: 'Unauthorized' });
     }
 };

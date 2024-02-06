@@ -47,7 +47,6 @@ const getClient = async (req, res) => {
         connection.release();
         res.json(query);
     } catch (error) {
-        console.error(error);
         res.sendStatus(500);
     }
 };

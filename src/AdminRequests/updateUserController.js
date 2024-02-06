@@ -100,7 +100,6 @@ const putUser = async (req, res) => {
         // Use a parameterized query to prevent SQL injection
         const query = `UPDATE user SET ${placeholders.join(', ')} WHERE id_user = ?`;
 
-        console.log("query:", query)
 
         const command = await connection.execute(query, [...parameters.filter(param => param), user_id]);
 
@@ -112,7 +111,6 @@ const putUser = async (req, res) => {
             res.status(200).json({ message: 'Update successful' });
         }
     } catch (error) {
-        console.error(error); // Log the error for debugging
         res.status(500).json({ message: 'Internal server error.' });
     }
 };
