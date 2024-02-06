@@ -56,6 +56,10 @@ const postCreateOrder = async (req, res) => {
         const { id } = decodeToken(req, res);
         const { order_content } = req.body;
 
+        if (!req.is('json')) {
+            return res.status(400).json({ message: 'Bad request: Content-Type must be application/json.' });
+        }
+
         const insertOrderQuery = `INSERT INTO customer_order (id_client, order_state, date) VALUES (?, 1, NOW())`;
         const orderResult = await connection.query(insertOrderQuery, [id]);
 
@@ -77,15 +81,18 @@ const postCreateOrder = async (req, res) => {
                         return res.status(400).json({ message: 'Failed to insert Order content or Order.' });
                     }
                 }
+
+                if (sendingMessage) {
+                    res.status(201).json({ message: 'Order and Order Content inserted successfully.' });
+                } else {
+                    res.status(201).json({ message: 'Order inserted successfully.' });
+                }
+            } else {
+                connection.release();
+                res.status(400).json({ message: 'Bad request: You must have at least one article in your cart!' });
             }
 
             connection.release();
-
-            if (sendingMessage) {
-                res.status(201).json({ message: 'Order and Order Content inserted successfully.' });
-            } else {
-                res.status(201).json({ message: 'Order inserted successfully.' });
-            }
         } else {
             connection.release();
             res.status(400).json({ message: 'Failed to insert Order.' });
