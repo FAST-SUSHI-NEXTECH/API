@@ -3,7 +3,7 @@ const pool = require('../dbConnection');
 
 /**
  * @swagger
- * /order:
+ * /order/all:
  *   get:
  *     summary: Get all orders
  *     description: Returns a list of all customer orders
