@@ -35,6 +35,7 @@ const { getInfoUser } = require('./src/UserRequests/getInfoUserController.js');
 const { getOrderStateByIdUser } = require('./src/OrderRequests/getOrderStateByIdUserController.js');
 
 const { getLeaderboard } = require('./src/PickerRequests/getLeaderboardController.js');
+const { getUserCount } = require('./src/AdminRequests/getCountUserController.js');
 
 
 
@@ -71,7 +72,7 @@ const { deleteIngredient } = require('./src/AdminRequests/deleteIngredientContro
 const API_PORT = 3001;
 
 // Apply the JWT middleware to routes that require admin authentication
-app.use(['/user/delete', '/custom/ingredient/delete', '/user/client', '/custom/ingredient/update', '/product/upload/image', '/user/update'], verifyToken('admin'));
+app.use(['/user/delete', '/custom/ingredient/delete', '/user/client', '/custom/ingredient/update', '/product/upload/image', '/user/update', '/user/count'], verifyToken('admin'));
 // Apply the JWT middleware to routes that require picker authentication
 app.use(['/order/state/update', '/user/picker/id', '/order/all', '/order/picker/update', '/user/picker/username', '/user/picker/leaderboard', '/order/picker/count'], verifyToken('picker'));
 // Apply the JWT middleware to routes that require user authentication
@@ -99,6 +100,7 @@ app.get('/order/all', getOrder)
 app.get('/user/client', getClient)
 app.get('/user/info', getInfoUser)
 app.get('/order/id/user', getOrderByIdClient)
+app.get('/user/count', getUserCount)
 
 
 // picker get
