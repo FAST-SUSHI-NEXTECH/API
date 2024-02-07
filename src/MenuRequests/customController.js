@@ -1,33 +1,5 @@
 const pool = require('../dbConnection'); 
 
-/**
- * @swagger
- * /custom/base:
- *   get:
- *     summary: Get base data
- *     description: Returns base data
- *     tags:
- *       - Product
- *     responses:
- *       200:
- *         description: Successful response
- *         content:
- *           application/json:
- *             example: { Base: 'Saumon', price: 4.10 }
- * /custom/ingredient:
- *   get:
- *     summary: Get ingredient data
- *     description: Returns ingredient data
- *     tags:
- *       - Product
- *     responses:
- *       200:
- *         description: Successful response
- *         content:
- *           application/json:
- *             example: { ingredient: 'Cheese', price: 1.59 }
- */
-
 const getBaseCustomData = async (req, res) => {
     try {
         const connection = await pool.getConnection();
