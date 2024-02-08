@@ -9,6 +9,8 @@ const pool = require('../dbConnection');
  *     description: Returns details of a client based on the provided user ID.
  *     tags:
  *       - Admin
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
