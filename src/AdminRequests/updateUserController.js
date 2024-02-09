@@ -73,15 +73,9 @@ const putUser = async (req, res) => {
         if (user_id === undefined) {
             res.status(400).json({ message: 'Error: Missing user_id parameter' });
         }
-
-        let newValue = password;
         
-        const parameters = [last_name, first_name, username, newValue, email, tel];
+        const parameters = [last_name, first_name, username, email, tel];
         const placeholders = [];
-
-        if (password !== undefined) {
-            newValue = await bcrypt.hash(password, saltRounds);
-        }
 
         // for every parameter if a parameter is vide, delete it from the list
         const columns = ['last_name', 'first_name', 'username', 'email', 'tel'];
