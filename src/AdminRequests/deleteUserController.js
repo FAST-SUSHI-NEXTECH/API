@@ -21,7 +21,7 @@ const pool = require('../dbConnection');
  *                 type: integer
  *                 description: The username of the user to be deleted
  *             required:
- *               - username
+ *               - id_user
  *     responses:
  *       200:
  *         description: User deleted successfully
