@@ -5,7 +5,7 @@ const pool = require('../dbConnection');
  * /user/delete:
  *   delete:
  *     summary: Delete a user
- *     description: Deletes a user based on the provided username
+ *     description: Deletes a user based on the provided id user
  *     tags:
  *       - Admin
  *     security:
@@ -17,8 +17,8 @@ const pool = require('../dbConnection');
  *           schema:
  *             type: object
  *             properties:
- *               username:
- *                 type: string
+ *               id_user:
+ *                 type: integer
  *                 description: The username of the user to be deleted
  *             required:
  *               - username
@@ -43,8 +43,8 @@ const pool = require('../dbConnection');
 const deleteUser = async (req, res) => {
     try {
         const connection = await pool.getConnection();
-        const query = "DELETE FROM user WHERE username = ?";
-        const result = await connection.query(query, [req.body.username]);
+        const query = "DELETE FROM user WHERE id_user = ?";
+        const result = await connection.query(query, [req.body.id_user]);
 
         connection.release();
 
