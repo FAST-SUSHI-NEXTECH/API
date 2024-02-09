@@ -64,7 +64,7 @@ const getLeaderboard = async (req, res) => {
         const result = await connection.query(query);
 
         if (result.length === 0) {
-            res.status(401).json({ message: 'Authentication failed. Invalid username or password.' });
+            res.status(422).json({ message: 'Warning: no picker got order' });
         } else {            
             const serializedResult = JSON.parse(JSON.stringify(result, (key, value) =>
                         typeof value === 'bigint' ? value.toString() : value
