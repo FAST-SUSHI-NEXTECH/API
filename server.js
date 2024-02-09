@@ -67,13 +67,14 @@ const { putUser } = require('./src/AdminRequests/updateUserController.js');
 
 //delete
 const { deleteUser } = require('./src/AdminRequests/deleteUserController.js');
+const { deletePickerByIdUser } = require('./src/AdminRequests/deletePickerByIdUserController.js');
 // const { deleteIngredient } = require('./src/AdminRequests/deleteIngredientController.js');
 
 // need to change port for prod
 const API_PORT = 3001;
 
 // Apply the JWT middleware to routes that require admin authentication
-app.use(['/user/delete', '/user/client', '/product/upload/image', '/user/update', '/user/count', '/order/count'], verifyToken('admin'));
+app.use(['/user/picker/delete', '/user/delete', '/user/client', '/product/upload/image', '/user/update', '/user/count', '/order/count'], verifyToken('admin'));
 // Apply the JWT middleware to routes that require picker authentication
 app.use(['/order/state/update', '/user/picker/id', '/order/all', '/order/picker/update', '/user/picker/username', '/user/picker/leaderboard', '/order/picker/count'], verifyToken('picker'));
 // Apply the JWT middleware to routes that require user authentication
@@ -133,6 +134,7 @@ app.put('/user/update', putUser)
 
 //delete
 app.delete('/user/delete', deleteUser)
+app.delete('/user/picker/delete', deletePickerByIdUser)
 // app.delete('/custom/ingredient/delete', deleteIngredient)
 
 app.listen(API_PORT, () => {
