@@ -61,7 +61,7 @@ const putStateOrder = async (req, res) => {
             res.json({ message: 'Update successful' });
         }
     } catch (error) {
-        (error);
+        console.log(error);
         res.status(500).json({ message: 'Internal server error.'});
     }
 };

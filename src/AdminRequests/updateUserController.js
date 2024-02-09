@@ -23,8 +23,6 @@
  *                 type: string
  *               username:
  *                 type: string
- *               password:
- *                 type: string
  *               email:
  *                 type: string
  *               tel:
@@ -70,7 +68,7 @@ const saltRounds = 10;
 const putUser = async (req, res) => {
     try {
         const connection = await pool.getConnection();
-        const { user_id, last_name, first_name, username, password, email, tel } = req.body;
+        const { user_id, last_name, first_name, username, email, tel } = req.body;
 
         if (user_id === undefined) {
             res.status(400).json({ message: 'Error: Missing user_id parameter' });
@@ -86,7 +84,7 @@ const putUser = async (req, res) => {
         }
 
         // for every parameter if a parameter is vide, delete it from the list
-        const columns = ['last_name', 'first_name', 'username', 'password', 'email', 'tel'];
+        const columns = ['last_name', 'first_name', 'username', 'email', 'tel'];
         for (let i = 0; i < parameters.length; i++) {
             if (parameters[i]) { // If parameter exists, add it to SET clause
                 placeholders.push(`${columns[i]} = ?`);
