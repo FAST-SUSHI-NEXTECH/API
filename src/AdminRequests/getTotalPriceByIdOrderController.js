@@ -15,7 +15,7 @@
  *           schema:
  *             type: object
  *             properties:
- *               id_user:
+ *               id_order:
  *                 type: integer
  *                 description: The ID of the order to retrieve.
  *             required:
@@ -50,7 +50,7 @@ const getTotalOrderByIdOrder = async (req, res) => {
         const query = `SELECT ROUND(SUM(price), 2) AS TOTAL_ORDER 
         FROM order_content 
         JOIN product ON order_content.id_content = product.id_product 
-        WHERE order_content.id_order = ?;`;
+        WHERE order_content.id_order = ?`;
 
         const result = await connection.query(query,[id_order]);
         connection.release();
