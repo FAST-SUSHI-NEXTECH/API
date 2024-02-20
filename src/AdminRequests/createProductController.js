@@ -62,7 +62,10 @@ const postCreateProduct = async (req, res) => {
             quantity
         } = req.body;
 
-
+        if (quantity === null) {
+            res.status(400).json({ message: "Quantity can't be Null" });
+            return;
+        }
 
         if (!type_product || !product_name || !description || !price || !quantity) {
             res.status(400).json({ message: 'All fields are required.' });
