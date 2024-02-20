@@ -64,7 +64,6 @@ const putProduct = async (req, res) => {
             const query = "UPDATE product SET type_product = ?, product_name = ?, description = ?, price = ?, quantity = ? WHERE id_product = ?";
             const command = await connection.execute(query, [type_product, product_name, description, price, quantity, id_product]);
 
-            console.log(command);
             connection.release();
 
             if (command.affectedRows === 0) {

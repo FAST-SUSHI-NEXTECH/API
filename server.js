@@ -64,11 +64,11 @@ const {postCreateProduct} = require("./src/AdminRequests/createProductController
 
 // put (update)
 const { putStateOrder } = require('../API/src/OrderRequests/stateOrderController.js');
-// const { putIngredient } = require('./src/AdminRequests/putIngredientController.js');
+// const { putIngredient } = require('./src/AdminRequests/putProductController.js');
 const { putPickerToOrderById } = require('./src/OrderRequests/putPickerToOrderByIdController.js');
 const { putUser } = require('./src/AdminRequests/updateUserController.js');
 const { putUserToPicker } = require('./src/AdminRequests/updateUserToPickerController.js');
-const {putProduct} = require("./src/AdminRequests/putIngredientController");
+const {putProduct} = require("./src/AdminRequests/putProductController");
 
 
 
