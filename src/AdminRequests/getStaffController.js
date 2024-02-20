@@ -20,6 +20,7 @@
  *                 username: 'john_doe'
  *                 email: 'john@example.com'
  *                 tel: '123-456-7890'
+ *                 permission: 2
  *
  *               - id: 2
  *                 last_name: 'admin'
@@ -27,6 +28,7 @@
  *                 username: 'carolAdm'
  *                 email: 'carol@toto.com'
  *                 tel: '0601010101'
+ *                 permission: 2
  *
  *       500:
  *         description: Internal server error
@@ -41,7 +43,7 @@ const pool = require('../dbConnection');
 const getStaff = async (req, res) => {
     try {
         const connection = await pool.getConnection();
-        const result = await connection.query("select id_user, last_name, first_name, username, email, tel from user WHERE permission = 2 OR 3");
+        const result = await connection.query("select id_user, last_name, first_name, username, email, tel, permission from user WHERE permission = 2 OR permission = 3");
 
         connection.release();
 
