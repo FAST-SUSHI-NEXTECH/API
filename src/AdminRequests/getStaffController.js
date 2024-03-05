@@ -49,7 +49,6 @@ const getStaff = async (req, res) => {
 
         res.status(200).json(result);
     } catch (error) {
-        console.error(error);
         res.sendStatus(500);
     }
 };
