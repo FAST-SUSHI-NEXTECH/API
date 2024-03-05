@@ -3,7 +3,7 @@ const pool = require('../dbConnection');
 
 /**
  * @swagger
- * /user/client/id:
+ * /user/id:
  *   post:
  *     summary: Get client details by user ID
  *     description: Returns details of a client based on the provided user ID.
@@ -44,17 +44,17 @@ const pool = require('../dbConnection');
  *             example: { message: 'Internal server error.' }
  */
 
-const postClientById = async (req, res) => {
+const postUserById = async (req, res) => {
     try {
         const connection = await pool.getConnection();
         const { id_user } = req.body;        
 
-        const query = 'SELECT * FROM user WHERE id_user = ? AND permission = 1';
+        const query = 'SELECT * FROM user WHERE id_user = ?';
 
         const result = await connection.query(query,[id_user]);
         connection.release();
         if (result.length === 0) {
-            res.status(404).json({ message: 'User not found or maybe not a user with perm 1 !' });
+            res.status(404).json({ message: 'User not found' });
         } else {
             res.json(result);
         }
@@ -63,4 +63,4 @@ const postClientById = async (req, res) => {
     }
 };
 
-module.exports = { postClientById };
+module.exports = { postUserById };
