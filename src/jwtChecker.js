@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const { secretKey, secretUsername } = require('./config');
+const { secretKey} = require('./config');
 
 function verifyToken(mode) {
     return function (req, res, next) {
