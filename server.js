@@ -50,7 +50,7 @@ const { postOrderDetails } = require('./src/OrderRequests/orderDetailsController
 const loginController = require('./src/UserRequests/loginController.js');
 const { postCreateUser } = require('./src/UserRequests/createUserController.js');
 const { postCreateOrder } = require('./src/OrderRequests/createOrderController.js');
-const { postClientById } = require('./src/AdminRequests/getClientByIdController.js');
+const { postClientById } = require('./src/AdminRequests/getUserByIdController.js');
 const { getProductById } = require('./src/MenuRequests/productByIdController.js');
 const { postAvatarUser } = require('./src/UserRequests/addPictureController.js');
 const { postProductImage } = require('./src/AdminRequests/addProductImageController.js');
@@ -78,17 +78,18 @@ const {putPickerToUser} = require("./src/AdminRequests/putPickerToUser");
 const { deleteUser } = require('./src/AdminRequests/deleteUserController.js');
 const { deletePickerByIdUser } = require('./src/AdminRequests/deletePickerByIdUserController.js');
 const {deleteProduct} = require("./src/AdminRequests/deleteIngredientController");
+const {postUserById} = require("./src/AdminRequests/getUserByIdController");
 // const { deleteIngredient } = require('./src/AdminRequests/deleteIngredientController.js');
 
 // need to change port for prod
 const API_PORT = 3001;
 
 // Apply the JWT middleware to routes that require admin authentication
-app.use(['/order/user/id', '/order/total/state','/product/delete', '/picker/downgrade', '/product/update', '/product/create', '/user/staff', '/order/total/id', '/user/upgrade', '/user/picker/delete', '/user/delete', '/user/client', '/product/upload/image', '/user/update', '/user/count', '/order/count'], verifyToken('admin'));
+app.use(['/user/id','/order/user/id', '/order/total/state','/product/delete', '/picker/downgrade', '/product/update', '/product/create', '/user/staff', '/order/total/id', '/user/upgrade', '/user/picker/delete', '/user/delete', '/user/client', '/product/upload/image', '/user/update', '/user/count', '/order/count'], verifyToken('admin'));
 // Apply the JWT middleware to routes that require picker authentication
 app.use(['/order/state/update', '/user/picker/id', '/order/all', '/order/picker/update', '/user/picker/username', '/user/picker/leaderboard', '/order/picker/count'], verifyToken('picker'));
 // Apply the JWT middleware to routes that require user authentication
-app.use(['/user/info','/order/create', '/order/details','/order/id','/user/client/id','/user/upload/avatar','/order/state', '/order/user'], verifyToken('user'));
+app.use(['/user/info','/order/create', '/order/details','/order/id','/user/upload/avatar','/order/state', '/order/user'], verifyToken('user'));
 
 // Redirect / to /home
 app.get('/', (req, res) => {
@@ -130,7 +131,7 @@ app.post('/login', loginController.postLogin)
 app.post('/order/create', postCreateOrder)
 app.post('/order/details', postOrderDetails)
 app.post('/order/id', postOrderById)
-app.post('/user/client/id', postClientById)
+app.post('/user/id', postUserById)
 app.post('/user/upload/avatar', postAvatarUser)
 app.post('/product/upload/image', postProductImage)
 app.post('/user/picker/username', postPickerByUsername)
