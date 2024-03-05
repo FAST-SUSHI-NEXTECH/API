@@ -53,6 +53,8 @@ const postOrderDetails = async (req, res) => {
         connection.release();
 
         const output = {};
+        const quantity = {};
+
         result.forEach(row => {
             const orderId = row.id_order;
             const productId = row.id_content;
@@ -61,15 +63,33 @@ const postOrderDetails = async (req, res) => {
                 output[orderId] = [];
             }
 
+            if (productId in quantity) {
+                quantity[productId]++;
+            } else {
+                quantity[productId] = 1;
+            }
+
             output[orderId].push(productId);
         });
 
 
-        const queryProduct = 'SELECT id_product, type_product, product_name, price, quantity  FROM product WHERE id_product IN (?)';
+        const queryProduct = 'SELECT id_product, type_product, product_name, price, quantity FROM product WHERE id_product IN (?)';
         const endResult = await connection.query(queryProduct, [output[id_order]]);
         connection.release();
 
-        res.json(endResult);
+        if (endResult.length === 0) {
+            res.status(404).json({message:"Order not found!"})
+        } else {
+            for (item in endResult) {
+                id_item = endResult[item].id_product
+                if (id_item in quantity) {
+                    endResult[item].quantity = quantity[id_item];
+                    new_price = endResult[item].quantity * endResult[item].price
+                    endResult[item].price = new_price
+                }
+            }
+            res.json(endResult);
+        }
     } catch (error) {
 
         res.sendStatus(500);
