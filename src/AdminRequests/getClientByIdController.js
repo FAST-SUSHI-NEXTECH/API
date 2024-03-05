@@ -53,7 +53,11 @@ const postClientById = async (req, res) => {
 
         const result = await connection.query(query,[id_user]);
         connection.release();
-        res.json(result);
+        if (result.length === 0) {
+            res.status(404).json({ message: 'User not found or maybe not a user with perm 1 !' });
+        } else {
+            res.json(result);
+        }
     } catch (error) {
         res.sendStatus(500);
     }
