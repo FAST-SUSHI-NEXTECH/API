@@ -1,8 +1,8 @@
 /**
  * @swagger
- * /order/id/user:
+ * /order/user:
  *   get:
- *     summary: Get orders by client ID
+ *     summary: Get orders by client token
  *     description: Returns details of customer orders based on the provided client ID from token.
  *     tags:
  *       - Order
@@ -47,7 +47,7 @@ const { secretKey } = require('../config');
 const jwt = require('jsonwebtoken');
 const pool = require('../dbConnection'); 
 
-const getOrderByIdClient = async (req, res) => {
+const getOrderByTokenClient = async (req, res) => {
     try {
         const connection = await pool.getConnection();
         const authHeader = req.headers['authorization'];
@@ -66,10 +66,14 @@ const getOrderByIdClient = async (req, res) => {
 
         const result = await connection.query(query,[id]);
         connection.release();
-        res.json(result);
+        if (result.length === 0) {
+            res.status(404).json({ message: 'Order not found or no order for this user.' });
+        } else {
+            res.json(result);
+        }
     } catch (error) {
         res.sendStatus(500);
     }
 };
 
-module.exports = { getOrderByIdClient };
+module.exports = { getOrderByTokenClient };

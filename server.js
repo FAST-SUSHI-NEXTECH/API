@@ -55,7 +55,7 @@ const { getProductById } = require('./src/MenuRequests/productByIdController.js'
 const { postAvatarUser } = require('./src/UserRequests/addPictureController.js');
 const { postProductImage } = require('./src/AdminRequests/addProductImageController.js');
 const { postPickerByUsername } = require('./src/PickerRequests/getPickerByUsernameController.js');
-const { getOrderByIdClient } = require('./src/OrderRequests/getOrderByIdClientController.js');
+const {getOrderByTokenClient} = require("./src/OrderRequests/getOrderByToken");
 const { postCountOrderByIdPicker } = require('./src/PickerRequests/totalOrderByPickerIdController.js');
 const {postCreateProduct} = require("./src/AdminRequests/createProductController");
 const {getTotalOrderByState} = require("./src/AdminRequests/getTotalOfOrderByState");
@@ -90,7 +90,7 @@ app.use(['/order/total/state','/product/delete', '/picker/downgrade', '/product/
 // Apply the JWT middleware to routes that require picker authentication
 app.use(['/order/state/update', '/user/picker/id', '/order/all', '/order/picker/update', '/user/picker/username', '/user/picker/leaderboard', '/order/picker/count'], verifyToken('picker'));
 // Apply the JWT middleware to routes that require user authentication
-app.use(['/user/info','/order/create', '/order/details','/order/id','/user/client/id','/user/upload/avatar','/order/state', '/order/id/user'], verifyToken('user'));
+app.use(['/user/info','/order/create', '/order/details','/order/id','/user/client/id','/user/upload/avatar','/order/state', '/order/user'], verifyToken('user'));
 
 // Redirect / to /home
 app.get('/', (req, res) => {
@@ -114,7 +114,7 @@ app.post('/product/id', getProductById)
 app.get('/order/all', getOrder)
 app.get('/user/client', getClient)
 app.get('/user/info', getInfoUser)
-app.get('/order/id/user', getOrderByIdClient)
+app.get('/order/user', getOrderByTokenClient)
 app.get('/user/count', getUserCount)
 app.get('/order/count', getOrderCount)
 
