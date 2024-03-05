@@ -47,7 +47,7 @@ const getTotalOrderByState = async (req, res) => {
         const connection = await pool.getConnection();
         const { state } = req.body;
 
-        if (state !== 1 || state !== 2 || state !== 3) {
+        if (state !== 1 && state !== 2 && state !== 3) {
             res.status(404).json({ message: 'Wrong state!' });
         }
 
