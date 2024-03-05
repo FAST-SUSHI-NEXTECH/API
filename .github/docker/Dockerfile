@@ -1,27 +1,38 @@
-# Utilisez une image de base Node.js
-FROM node:18
+# Use the Node.js 18 image
+FROM node:14
 
-# Créez et définissez le répertoire de travail dans le conteneur
+# Install Supervisor
+RUN apt-get update && apt-get install -y supervisor
+
+# Set the working directory for the Node.js application
 WORKDIR /API
 
-# Clone the Git repository (replace <repository-url> with your actual repository URL)
-RUN git clone --branch v2.4 --single-branch https://github.com/FAST-SUSHI-NEXTECH/API.git .
+# Clone the Git repository
+RUN git clone --branch v3.1.1 --single-branch https://github.com/FAST-SUSHI-NEXTECH/API.git .
 
-# Delete the /src/dbConnection.js file
+# Remove existing configuration files
 RUN rm -f src/dbConnection.js
-
-# Delete the /src/dbConnection.js file
 RUN rm -f src/config.js
 
-# Copy the local config.js & dbConnection.js file to the same location
+# Copy the local configuration files
 COPY config.js src/config.js
 COPY dbConnection.js src/dbConnection.js
 
-# Installez les dépendances du projet
+# Install Node.js dependencies
 RUN npm install
 
-# Exposez le port sur lequel votre application Express s'exécute
-EXPOSE 3000
+# Expose port 3000 for Node.js application
+EXPOSE 3001
 
-# Command to start your application
-CMD [ "npm", "start" ]
+# Set up Supervisor configuration
+COPY supervisor.conf /etc/supervisor/conf.d/supervisor-node.conf
+
+# Set up Python web server and copy assets
+WORKDIR /
+COPY assets /assets
+
+# Expose port 80 for Python web server
+EXPOSE 80
+
+# Command to start Supervisor
+CMD ["supervisord", "-c", "/etc/supervisor/supervisord.conf", "--nodaemon"]
