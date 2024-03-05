@@ -85,9 +85,9 @@ const {postUserById} = require("./src/AdminRequests/getUserByIdController");
 const API_PORT = 3001;
 
 // Apply the JWT middleware to routes that require admin authentication
-app.use(['/user/id','/order/user/id', '/order/total/state','/product/delete', '/picker/downgrade', '/product/update', '/product/create', '/user/staff', '/order/total/id', '/user/upgrade', '/user/picker/delete', '/user/delete', '/user/client', '/product/upload/image', '/user/update', '/user/count', '/order/count'], verifyToken('admin'));
+app.use(['/user/id','/order/user/id', '/order/total/state','/product/delete', '/picker/downgrade', '/product/update', '/product/create', '/user/staff', '/user/upgrade', '/user/picker/delete', '/user/delete', '/user/client', '/product/upload/image', '/user/update', '/user/count', '/order/count'], verifyToken('admin'));
 // Apply the JWT middleware to routes that require picker authentication
-app.use(['/order/state/update', '/user/picker/id', '/order/all', '/order/picker/update', '/user/picker/username', '/user/picker/leaderboard', '/order/picker/count'], verifyToken('picker'));
+app.use(['/order/state/update', '/user/picker/id', '/order/all', '/order/picker/update', '/user/picker/username', '/user/picker/leaderboard', '/order/picker/count', '/order/total/id'], verifyToken('picker'));
 // Apply the JWT middleware to routes that require user authentication
 app.use(['/user/info','/order/create', '/order/details','/order/id','/user/upload/avatar','/order/state', '/order/user'], verifyToken('user'));
 

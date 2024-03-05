@@ -5,7 +5,7 @@
  *     summary: Get total order by order ID
  *     description: Returns total order price of an order based on the provided order ID.
  *     tags:
- *       - Admin
+ *       - Order
  *     security:
  *       - bearerAuth: []
  *     requestBody:
